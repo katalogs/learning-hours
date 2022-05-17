@@ -1,2 +1,6 @@
-# learning-hours
-Learning hours for Craft / Technical Coaches
+# Learning Hours
+This repository contains our `learning hours` to share dev techniques, practices and principles.
+
+Each of them respect the 4C format as described [here](https://www.sammancoaching.org/)
+
+- [Generate Code from Usage](generate-code-from-usage/Facilitation.md)

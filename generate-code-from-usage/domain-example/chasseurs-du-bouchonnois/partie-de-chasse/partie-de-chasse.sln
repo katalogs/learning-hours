@@ -1,0 +1,16 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "partie-de-chasse", "partie-de-chasse\partie-de-chasse.csproj", "{3FA4C513-2881-4CCF-9266-24996FDC6995}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{3FA4C513-2881-4CCF-9266-24996FDC6995}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3FA4C513-2881-4CCF-9266-24996FDC6995}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3FA4C513-2881-4CCF-9266-24996FDC6995}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3FA4C513-2881-4CCF-9266-24996FDC6995}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
