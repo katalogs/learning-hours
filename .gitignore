@@ -343,3 +343,6 @@ CoverageResults/
 
 # Mac OS
 .DS_Store
+
+# Javascript
+yarn.lock
