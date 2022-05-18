@@ -13,9 +13,9 @@ Three situations that happened when refactoring a legacy codebase.  *1 note per 
 
 ## Concepts (15 min)
 - Introduce the mikado method and and its workflow.
-- Make a demo using a kata (eg. [Mikado Method and Test Data Builders Kata](https://github.com/murex/mikado-testbuilders-kata)):
+- Make a demo using the [test-data-builders-kata](../test-data-builders-kata), choosing the language of your choice:
   - Mikado Goal: replace test inputs creation with Test Data Builders
-  - Create a Test Data Builder for an Invoice
+  - Create a Test Data Builder for an Invoice, using only builders
   - Solution for the next step: Create a Test Data Builder for a BookPurchase
   - Revert changes
 
