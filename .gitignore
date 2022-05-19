@@ -346,3 +346,4 @@ CoverageResults/
 
 # Javascript
 yarn.lock
+**/coverage/
