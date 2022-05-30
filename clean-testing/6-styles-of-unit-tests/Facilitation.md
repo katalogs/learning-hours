@@ -61,6 +61,9 @@ Code snippets and the associated production code are available in the `kata` fol
 Follow instructions available [here](kata/audit.md)
 
 ## Conclusion
+Compare the first version of the `unit test` with the new one.
+
+> Which one is the easiest to read and why ?
 
 ### Resources
 Concepts are coming from Vladimir Khorikov's book : [Unit Testing Principles, Practices and Patterns](https://www.manning.com/books/unit-testing?gclid=CjwKCAjwvuGJBhB1EiwACU1AiXRex4_iJd4XNXoyWz_qGU_hCcov7JLwfgJUC7xZhzxQSSFLC2WRNhoCjMoQAvD_BwE)
