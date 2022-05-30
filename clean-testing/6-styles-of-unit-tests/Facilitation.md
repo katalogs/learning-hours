@@ -58,7 +58,7 @@ Code snippets and the associated production code are available in the `kata` fol
 - Which kind of tests do mainly write?
 
 ## Concrete Practice - Refactor to output-based testing
-
+Follow instructions available [here](kata/audit.md)
 
 ## Conclusion
 

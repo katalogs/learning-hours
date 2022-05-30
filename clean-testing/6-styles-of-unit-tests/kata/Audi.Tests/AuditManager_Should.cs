@@ -29,9 +29,9 @@ public class AuditManager_Should
             .Setup(x => x.ReadAllLines(Path.Combine(DirectoryName, "audit_2.txt")))
             .Returns(new List<string>
             {
-                "Peter; 2019-04-06 16:30:00",
-                "Jane; 2019-04-06 16:40:00",
-                "Jack; 2019-04-06 17:00:00"
+                "Peter;2019-04-06 16:30:00",
+                "Jane;2019-04-06 16:40:00",
+                "Jack;2019-04-06 17:00:00"
             });
         var sut = new AuditManager(3, DirectoryName, fileSystemMock.Object);
         
@@ -41,6 +41,6 @@ public class AuditManager_Should
         // Assert
         fileSystemMock.Verify(x => x.WriteAllText(
             Path.Combine(DirectoryName, "audit_3.txt"),
-            "Alice;04/06/2019 18:00:00"));
+            "Alice;2019-04-06 18:00:00"));
     }
 }
