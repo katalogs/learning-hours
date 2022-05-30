@@ -1,0 +1,103 @@
+root = true
+# Remove the line below if you want to inherit .editorconfig settings from higher directories
+
+# C# files
+[*.cs]
+
+#### Core EditorConfig Options ####
+
+# Indentation and spacing
+indent_size = 4
+indent_style = space
+tab_width = 4
+
+# New line preferences
+end_of_line = crlf
+insert_final_newline = true
+max_line_length = 120
+
+# Code style
+# csharp_for_built_in_types = use_explicit_type
+# csharp_for_simple_types = use_explicit_type
+# csharp_for_other_types = use_explicit_type
+csharp_instance_members_qualify_members = property
+
+# Spaces
+csharp_extra_spaces = remove_all
+csharp_space_after_keywords_in_control_flow_statements = true
+csharp_keep_user_linebreaks = false
+csharp_special_else_if_treatment = true
+csharp_insert_final_newline = true
+csharp_keep_existing_arrangement = false
+csharp_place_attribute_on_same_line = false
+csharp_place_accessor_attribute_on_same_line = if_owner_is_single_line
+
+csharp_continuous_indent_multiplier = 1
+csharp_indent_nested_usings_stmt = true
+csharp_indent_method_decl_pars = inside
+csharp_indent_invocation_pars = inside
+csharp_indent_pars = inside
+
+csharp_keep_blank_lines_in_declarations = 1
+csharp_blank_lines_after_start_comment = 0
+csharp_blank_lines_around_namespace = 1
+csharp_blank_lines_inside_namespace = 1
+csharp_blank_lines_around_type = 1
+csharp_blank_lines_around_single_line_type = 1
+csharp_blank_lines_inside_type = 0
+csharp_blank_lines_around_field = 1
+csharp_blank_lines_around_single_line_field = 1
+csharp_blank_lines_around_property = 1
+csharp_blank_lines_around_single_line_property = 1
+csharp_blank_lines_around_auto_property = 1
+csharp_blank_lines_around_single_line_auto_property = 1
+csharp_blank_lines_around_accessor = 0
+csharp_blank_lines_around_single_line_accessor = 0
+csharp_blank_lines_around_invocable = 1
+csharp_keep_blank_lines_in_code = 1
+csharp_remove_blank_lines_near_braces_in_code = true
+csharp_blank_lines_around_local_method = 1
+csharp_blank_lines_around_single_line_local_method = 1
+
+# Chaining method calls
+csharp_wrap_chained_method_calls = chop_always
+csharp_wrap_after_dot_in_method_calls = false
+
+# ReSharper properties
+resharper_blank_lines_after_start_comment = 0
+resharper_blank_lines_around_single_line_auto_property = 1
+resharper_blank_lines_around_single_line_local_method = 1
+resharper_blank_lines_around_single_line_property = 1
+resharper_blank_lines_before_control_transfer_statements = 1
+resharper_blank_lines_inside_namespace = 1
+resharper_csharp_blank_lines_around_single_line_field = 1
+resharper_csharp_blank_lines_around_single_line_invocable = 1
+resharper_csharp_keep_blank_lines_in_code = 1
+resharper_csharp_keep_blank_lines_in_declarations = 1
+resharper_csharp_wrap_arguments_style = chop_if_long
+resharper_csharp_wrap_before_ternary_opsigns = false
+resharper_csharp_wrap_ternary_expr_style = chop_always
+resharper_enforce_line_ending_style = true
+resharper_for_other_types = use_var_when_evident
+resharper_indent_nested_usings_stmt = true
+resharper_instance_members_qualify_members = none, property
+resharper_keep_existing_arrangement = false
+resharper_place_accessorholder_attribute_on_same_line = false
+resharper_place_expr_method_on_single_line = false
+resharper_place_expr_property_on_single_line = false
+resharper_place_field_attribute_on_same_line = false
+resharper_remove_blank_lines_near_braces_in_declarations = false
+resharper_show_autodetect_configure_formatting_tip = false
+resharper_space_within_single_line_array_initializer_braces = false
+resharper_use_indent_from_vs = false
+resharper_wrap_before_arrow_with_expressions = true
+resharper_wrap_chained_method_calls = chop_always
+resharper_wrap_lines = true
+
+# ReSharper inspection severities
+resharper_suggest_var_or_type_built_in_types_highlighting = none
+resharper_suggest_var_or_type_elsewhere_highlighting = none
+resharper_suggest_var_or_type_simple_types_highlighting = none
+resharper_web_config_module_not_resolved_highlighting = warning
+resharper_web_config_type_not_resolved_highlighting = warning
+resharper_web_config_wrong_module_highlighting = warning

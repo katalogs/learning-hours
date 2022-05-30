@@ -5,6 +5,7 @@
 	- 3 Pillars + 1 foundation
 - Test Doubles
 	- Reprendre les exemples de code du livre Software Craft
+- Parameterized Tests
 - Solitary vs Sociable tests
 	- Schools of TDD
 - Styles of Unit Tests
@@ -30,15 +31,6 @@
 	- https://martinfowler.com/bliki/IntegrationTest.html
 
 
-- Anatomy of Unit Tests
-- Properties of Good Unit Tests
-- Test Doubles
-- Solitary vs Sociable tests
-- Styles of Unit Tests
-- Types of code
-- Good Unit Tests / Anti-patterns
-- The hunt to 100% code coverage
-- Integration Tests
-	
 
 	
+audits/audit_3.txt
