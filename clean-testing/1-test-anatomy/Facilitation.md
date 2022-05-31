@@ -1,7 +1,7 @@
 # Test anatomy
 ## Learning Goals
-- Understand the importance of the 3 test parts
 - Demystify what are Unit Tests
+- Understand the importance of the 3 test parts
 
 ## Connect - MythBusters
 In small groups, categorize each sentence about Unit tests in :

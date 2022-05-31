@@ -10,7 +10,7 @@
 	- Schools of TDD
 - Styles of Unit Tests
 	- Communication
-	- Ouput Based
+	- Output Based
 	- State Based
 - Types of code
 - FluentAssertions

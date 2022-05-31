@@ -42,7 +42,7 @@ The goal of the kata is to write the following unit tests as expressed during an
 Feature: Submarine
 Verifying the submarine controls are correct
 
-    Scenario: Submarine default position
+    Scenario: Scenario 1
         Given submarine is initialized
         Then submarine depth should be 0
         And submarine position should be 0
