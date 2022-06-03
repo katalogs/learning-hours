@@ -9,3 +9,4 @@ Each of them respect the 4C format as described [here](https://www.sammancoachin
   - [Refactoring test inputs with Test Data Builders](test-data-builders/refactoring-test-inputs-with-test-data-builders/Facilitation.md)
   - [Business oriented Test Data Builders](test-data-builders/business-oriented-test-data-builders/Facilitation.md)
 - [Discriminated Unions](discriminated-unions/Facilitation.md)
+- [Specification Pattern](specification-pattern/Facilitation.md)
