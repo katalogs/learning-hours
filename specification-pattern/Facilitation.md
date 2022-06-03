@@ -1,4 +1,4 @@
-# Discriminated Unions
+# Specification Pattern
 ## Learning Goals
 Understand how the Specification Pattern can help us:
 - Write more readable code
@@ -86,6 +86,12 @@ public int xXx(DateTime postedAfter)
 
 ## Concrete Practice (35 min)
 - Implement the `Specification` to pass the tests
+
+```text
+Je suis en Russie je suis majeur je veux acheter 1 film sur Poutine -> refus
+Je suis en Russie je suis majeur je veux acheter 1 film sur Poutine -> accepté
+Je suis mineur je veux acheter 1 film olé olé -> refus
+Je suis majeur je veux acheter 1 film olé olé -> accepté
 
 Reprendre les spécifications ici : https://github.com/bmgandre/dotnet-specification-pattern
 
