@@ -6,6 +6,7 @@ public class MovieBuilder
 {
     private string? _name;
     private readonly List<Country> _restrictedIn = new();
+    private MpaaRating? _rating;
 
     public static MovieBuilder AMovie() => new();
 
@@ -17,5 +18,13 @@ public class MovieBuilder
         return this;
     }
 
-    public Movie Build() => new(_name ?? "Tenet", MpaaRating.G, _restrictedIn.ToArray());
+    public MovieBuilder OléOlé()
+    {
+        _name = "Olé";
+        _rating = MpaaRating.NC17;
+
+        return this;
+    }
+
+    public Movie Build() => new(_name ?? "Tenet", _rating ?? MpaaRating.G, _restrictedIn.ToArray());
 }

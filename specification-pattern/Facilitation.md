@@ -96,13 +96,12 @@ Since a specification is an `encapsulation of logic` in a `reusable form` it is 
 - Implement the missing `Specification(s)` to pass the tests
 
 ```text
-Je suis en Russie je suis majeur je veux acheter 1 film sur Poutine -> refus
-Je suis en Russie je suis majeur je veux acheter 1 film sur Poutine -> accepté
-Je suis mineur je veux acheter 1 film olé olé -> refus
-Je suis majeur je veux acheter 1 film olé olé -> accepté
+Given a customer living in Russia and major When he/she wants to play a movie on Poutine Then he/she gets a rejection
+Given a customer living in France and major When he/she wants to play a movie on Poutine Then he/she gets an approval
+Given a minor customer When he/she wants to play an "olé olé" movie Then he/she gets a rejection
+Given a major customer When he/she wants to play an "olé olé" movie Then he/she gets an approval
 ```
-
-Reprendre les spécifications ici : https://github.com/bmgandre/dotnet-specification-pattern
+[![Olé olé](img/olé-olé.jpeg)](https://youtu.be/8bDmeeGVNvc)
 
 ## Conclusion (5min) - Impact
 TODO

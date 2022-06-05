@@ -2,11 +2,9 @@ namespace Movies;
 
 public record Age
 {
-    private readonly int _age;
+    public int Value { get; }
 
-    public int Value => _age;
-
-    private Age(int age) => _age = age;
+    private Age(int age) => Value = age;
 
     public static Age From(int age)
     {
@@ -14,4 +12,7 @@ public record Age
             throw new ArgumentOutOfRangeException("age");
         return new Age(age);
     }
+
+    public static bool operator >(Age from, int compare) => from.Value > compare;
+    public static bool operator <(Age from, int compare) => from.Value < compare;
 }

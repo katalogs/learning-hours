@@ -1,15 +1,12 @@
 using System;
+using static Movies.Country;
 
 namespace Movies.Tests;
 
 public class CustomerBuilder
 {
-    private Country _country;
-    private Age _age;
-
-    public static CustomerBuilder ARussianCustomer() =>
-        ANewCustomer()
-            .LivingIn(Country.Russia);
+    private Country? _country;
+    private Age? _age;
 
     public CustomerBuilder LivingIn(Country country)
     {
@@ -31,7 +28,7 @@ public class CustomerBuilder
 
     private Age FuzzyAge(int from, int to) => new Random().Next(@from, to).ToAge();
 
-    public Customer Build() => new Customer("Jane Doe", _country, _age);
+    public Customer Build() => new Customer("Jane Doe", _country ?? France, _age ?? 40.ToAge());
 
     public static CustomerBuilder ANewCustomer() => new();
 }
