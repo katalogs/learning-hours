@@ -1,5 +1,5 @@
 using System.Linq.Expressions;
-using Specifications;
+using Specification;
 
 namespace Blog.Blogs
 {

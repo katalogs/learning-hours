@@ -1,12 +1,10 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SpecificationByExample", "SpecificationByExample\SpecificationByExample.csproj", "{5F401C70-D059-4FDE-B14F-1DB8E59FE36C}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Blog", "Blog\Blog.csproj", "{C2CBABAA-2364-4D11-AB2E-28E7510256CF}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Blog.Tests", "Blog.Tests\Blog.Tests.csproj", "{A3F71770-72D5-4246-9DFB-244F6A6DE434}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Specifications", "Specifications\Specifications.csproj", "{47ADDD98-212A-4A95-A421-FC3D90B67ADF}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Specification", "Specification\Specification.csproj", "{47ADDD98-212A-4A95-A421-FC3D90B67ADF}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -14,10 +12,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{5F401C70-D059-4FDE-B14F-1DB8E59FE36C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{5F401C70-D059-4FDE-B14F-1DB8E59FE36C}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{5F401C70-D059-4FDE-B14F-1DB8E59FE36C}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{5F401C70-D059-4FDE-B14F-1DB8E59FE36C}.Release|Any CPU.Build.0 = Release|Any CPU
 		{C2CBABAA-2364-4D11-AB2E-28E7510256CF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{C2CBABAA-2364-4D11-AB2E-28E7510256CF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C2CBABAA-2364-4D11-AB2E-28E7510256CF}.Release|Any CPU.ActiveCfg = Release|Any CPU

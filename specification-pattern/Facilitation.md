@@ -14,13 +14,13 @@ Understand how the Specification Pattern can help us:
 
 `Snippet 1`
 ```c#
-public int CountValidPostsAfter(DateTime postedAfter) => 
-            Filter(
+public int xXx(DateTime postedAfter) => 
+            xXx2(
                 _blogRepository.FetchAll(),
                 postedAfter
             ).Length;
 
-private Post[] Filter(Blogs.Blog[] blogs, DateTime postedAfter)
+private Post[] xXx2(Blogs.Blog[] blogs, DateTime postedAfter)
 {
     var results = new List<Post>();
 
@@ -74,18 +74,26 @@ public int xXx(DateTime postedAfter)
                     .And(new NotBannedSpecification())
                     .And(new CreatedAfterSpecification(postedAfter)).IsSatisfiedBy(post));
 ```
-   
 
+Code source is available in the `SpecificationDemo` folder
 
 ## Concepts
-- Specification Pattern -> IMAGE 
-- Wikipedia
-- In C#
-  - Full Object
-  - With `Builder` + `Extensions`
+![Specification pattern explained](img/specification-pattern.png)
+
+The specification pattern is a particular software design pattern, whereby business rules can be recombined by chaining the business rules together using boolean logic. 
+The pattern is frequently used in the context of domain-driven design.
+
+A `specification pattern outlines a business rule` that is combinable with other business rules. In this pattern, a unit of business logic inherits its functionality from the abstract aggregate Composite Specification class. 
+The Composite Specification class has one function called `IsSatisfiedBy` that returns a boolean value. 
+
+After instantiation, the specification is `chained` with other specifications, making new specifications easily maintainable, yet highly customizable business logic. 
+
+As a consequence of performing runtime composition of high-level business/domain logic, the Specification pattern is a convenient tool for converting ad-hoc user search criteria into low level logic to be processed by repositories.
+
+Since a specification is an `encapsulation of logic` in a `reusable form` it is very simple to thoroughly unit test, and when used in this context is also an implementation of the humble object pattern.
 
 ## Concrete Practice (35 min)
-- Implement the `Specification` to pass the tests
+- Implement the missing `Specification(s)` to pass the tests
 
 ```text
 Je suis en Russie je suis majeur je veux acheter 1 film sur Poutine -> refus

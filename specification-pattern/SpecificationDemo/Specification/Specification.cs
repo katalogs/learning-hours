@@ -1,10 +1,10 @@
 ﻿using System.Linq.Expressions;
 
-namespace Specifications
+namespace Specification
 {
     public abstract class Specification<T>
     {
-        public static readonly Specification<T> All = new IdentitySpecification<T>();
+        private static readonly Specification<T> All = new IdentitySpecification<T>();
 
         public bool IsSatisfiedBy(T entity)
         {
