@@ -4,7 +4,7 @@ Understand how the Specification Pattern can help us:
 - Write more readable code
 - Reuse rules between different entities
 
-## Connect - Rule comprehension
+## Connect - Rule comprehension (5 min)
 - Split the group in 2
   - In parallel groups have to identify clearly what are the rules implemented in their respected code snippet 
   - Give 1 minute to understand what is going on
@@ -75,9 +75,7 @@ public int xXx(DateTime postedAfter)
                     .And(new CreatedAfterSpecification(postedAfter)).IsSatisfiedBy(post));
 ```
 
-Code source is available in the `SpecificationDemo` folder
-
-## Concepts
+## Concepts (10 min)
 ![Specification pattern explained](img/specification-pattern.png)
 
 The specification pattern is a particular software design pattern, whereby business rules can be recombined by chaining the business rules together using boolean logic. 
@@ -92,6 +90,9 @@ As a consequence of performing runtime composition of high-level business/domain
 
 Since a specification is an `encapsulation of logic` in a `reusable form` it is very simple to thoroughly unit test, and when used in this context is also an implementation of the humble object pattern.
 
+- Code source of the connection is available in the `SpecificationDemo` folder
+    - Make a demo of it
+
 ## Concrete Practice (35 min)
 - Implement the missing `Specification(s)` to pass the tests
 
@@ -103,5 +104,12 @@ Given a major customer When he/she wants to play an "olé olé" movie Then he/sh
 ```
 [![Olé olé](img/olé-olé.jpeg)](https://youtu.be/8bDmeeGVNvc)
 
-## Conclusion (5min) - Impact
-TODO
+- Which other rules / specification could be added?
+  - More granular regarding [MPAA](https://en.wikipedia.org/wiki/Motion_Picture_Association_film_rating_system) maybe?
+
+## Conclusion (5 min) - Impact
+Discuss about the 2 `Specification` implementation seen (OO oriented, more FP oriented)
+- Which one do you prefer and why?
+- How would we want to use it on our production code?
+
+Implementation solution available [here](solution.md)
