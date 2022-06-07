@@ -97,10 +97,10 @@ Since a specification is an `encapsulation of logic` in a `reusable form` it is 
 - Implement the missing `Specification(s)` to pass the tests
 
 ```text
-Given a customer living in Russia and major When he/she wants to play a movie on Poutine Then he/she gets a rejection
-Given a customer living in France and major When he/she wants to play a movie on Poutine Then he/she gets an approval
-Given a minor customer When he/she wants to play an "olé olé" movie Then he/she gets a rejection
-Given a major customer When he/she wants to play an "olé olé" movie Then he/she gets an approval
+Given a customer living in Russia and major When they wants to play a movie on Putin Then they gets a rejection
+Given a customer living in France and major When they wants to play a movie on Putin Then they gets an approval
+Given a minor customer When they wants to play an "olé olé" movie Then they gets a rejection
+Given a major customer When they wants to play an "olé olé" movie Then they gets an approval
 ```
 [![Olé olé](img/olé-olé.jpeg)](https://youtu.be/8bDmeeGVNvc)
 

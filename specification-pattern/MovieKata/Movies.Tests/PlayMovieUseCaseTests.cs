@@ -13,9 +13,9 @@ public class ReadMovieUseCaseTests
 
     public ReadMovieUseCaseTests() => _useCase = new PlayMovieUseCase(new SpecificationFactory());
 
-    private static Movie APoutineMovie()
+    private static Movie APutinMovie()
         => AMovie()
-            .OnPoutine()
+            .OnPutin()
             .Build();
 
     private static Movie AnOléOléMovie()
@@ -24,35 +24,35 @@ public class ReadMovieUseCaseTests
             .Build();
 
     [Fact(DisplayName =
-        "Given a customer living in Russia When he/she want to play a movie on Poutine Then he/she gets a rejection")]
-    public void ARussianResidentShouldNotBeAbleToPlayAMovieOnPoutine()
+        "Given a customer living in Russia When they want to play a movie on Putin Then they gets a rejection")]
+    public void ARussianResidentShouldNotBeAbleToPlayAMovieOnPutin()
     {
         var customer = ANewCustomer()
             .LivingIn(Russia)
             .Build();
 
-        _useCase.Handle(customer, APoutineMovie())
+        _useCase.Handle(customer, APutinMovie())
             .Should()
             .BeFalse();
     }
 
 
     [Fact(DisplayName =
-        "Given a customer living in France When he/she wants to play a movie on Poutine Then he/she gets an approval")]
-    public void AFranceResidentShouldBeAbleToPlayAMovieOnPoutine()
+        "Given a customer living in France When they wants to play a movie on Putin Then they gets an approval")]
+    public void AFranceResidentShouldBeAbleToPlayAMovieOnPutin()
     {
         var customer = ANewCustomer()
             .LivingIn(France)
             .Major()
             .Build();
 
-        _useCase.Handle(customer, APoutineMovie())
+        _useCase.Handle(customer, APutinMovie())
             .Should()
             .BeTrue();
     }
 
     [Fact(DisplayName =
-        "Given a minor customer When he/she wants to play an olé olé movie Then he/she gets a rejection")]
+        "Given a minor customer When they wants to play an olé olé movie Then they gets a rejection")]
     public void AMinorShouldNotBeAbleToPlayAMovieOléOlé()
     {
         var customer = ANewCustomer()
@@ -65,7 +65,7 @@ public class ReadMovieUseCaseTests
     }
 
     [Fact(DisplayName =
-        "Given a major customer When he/she wants to play an olé olé movie Then he/she gets an approval")]
+        "Given a major customer When they wants to play an olé olé movie Then they gets an approval")]
     public void AMajorShouldBeAbleToPlayAMovieOléOlé()
     {
         var customer = ANewCustomer()

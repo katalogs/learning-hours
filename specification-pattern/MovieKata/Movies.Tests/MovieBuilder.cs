@@ -10,7 +10,7 @@ public class MovieBuilder
 
     public static MovieBuilder AMovie() => new();
 
-    public MovieBuilder OnPoutine()
+    public MovieBuilder OnPutin()
     {
         _name = "Un palais pour Poutine : L'Histoire du plus gros pot-de-vin";
         _restrictedIn.Add(Country.Russia);
