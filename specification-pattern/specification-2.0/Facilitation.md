@@ -1,4 +1,4 @@
-# Specification Pattern
+# Specification Pattern 2.0
 ## Learning Goals
 Understand how we could simplify `Specifications` and code readability
 

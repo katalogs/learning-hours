@@ -1,16 +1,4 @@
 ```c#
-public static class QueryExtensions
-{
-public static int Count<TSource>(this IEnumerable<TSource> source, Specification<TSource> specification)
-=> source.Count(specification.IsSatisfiedBy);
-
-    public static IEnumerable<TSource> Where<TSource>(this IEnumerable<TSource> source,
-        Specification<TSource> specification)
-        => source.Where(specification.IsSatisfiedBy);
-}
-```
-
-```c#
 public static class DomainSpecifications
 {
     public static ISpecification<Customer> IsAuthorizedInTheCountry(
