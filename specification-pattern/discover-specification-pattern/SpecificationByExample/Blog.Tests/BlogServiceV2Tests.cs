@@ -6,7 +6,7 @@ namespace Blog.Tests
 {
     public class BlogServiceV2Tests
     {
-        private readonly BlogServiceV1 _blogService = new(new BlogRepositoryForTests());
+        private readonly BlogServiceV2 _blogService = new(new BlogRepositoryForTests());
 
         [Theory]
         [InlineData("1990-01-01", 3)]

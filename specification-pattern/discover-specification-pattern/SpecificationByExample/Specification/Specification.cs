@@ -8,7 +8,7 @@ namespace Specification
 
         public bool IsSatisfiedBy(T entity)
         {
-            Func<T, bool> predicate = ToExpression().Compile();
+            var predicate = ToExpression().Compile();
             return predicate(entity);
         }
 
@@ -18,10 +18,9 @@ namespace Specification
         {
             if (this == All)
                 return specification;
-            if (specification == All)
-                return this;
-
-            return new AndSpecification<T>(this, specification);
+            return specification == All 
+                ? this 
+                : new AndSpecification<T>(this, specification);
         }
 
         public Specification<T> Or(Specification<T> specification)
