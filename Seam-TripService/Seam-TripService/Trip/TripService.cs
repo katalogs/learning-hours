@@ -8,7 +8,7 @@ public class TripService
     public List<Trip> GetTripsByUser(User.User user)
     {
         List<Trip> tripList = new List<Trip>();
-        User.User? loggedUser = UserSession.GetInstance().GetLoggedUser();
+        User.User? loggedUser = GetLoggedUser();
         bool isFriend = false;
         if (loggedUser != null)
         {
@@ -30,5 +30,10 @@ public class TripService
         {
             throw new UserNotLoggedInException();
         }
+    }
+
+    protected virtual User.User? GetLoggedUser()
+    {
+        return UserSession.GetInstance().GetLoggedUser();
     }
 }

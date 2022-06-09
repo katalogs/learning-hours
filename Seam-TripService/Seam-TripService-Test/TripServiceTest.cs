@@ -1,13 +1,28 @@
-﻿using Xunit;
+using Seam_TripService.Exception;
+using Seam_TripService.Trip;
+using Seam_TripService.User;
+using Xunit;
 
-namespace Seam_TripService_Test
+namespace Seam_TripService_Test;
+
+public class TripServiceTest
 {
-    public class Tests
+    [Fact]
+    public void should_throw_exception_when_user_is_not_logged()
     {
-        [Fact]
-        public void Test1()
+        // arrange
+        TripService tripService = new TestableTripService();
+        
+        // act
+        // assert
+        Assert.Throws<UserNotLoggedInException>(() => tripService.GetTripsByUser(new User()));
+    }
+
+    public class TestableTripService : TripService
+    {
+        protected override User? GetLoggedUser()
         {
-            Assert.True(true);
+            return null;
         }
     }
 }
