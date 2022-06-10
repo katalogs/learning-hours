@@ -41,7 +41,9 @@ public class DemoTests
 } 
 ```
 - If you run your code coverage on it, what is the result?
+
 ![Line coverage IsLong](img/line-coverage-IsLong.png)
+
 - Why?
     - `Code coverage` = `Lines of executed code` - 4 / `Total number of lines` - 6
 
@@ -54,7 +56,9 @@ public static bool IsLong(string input)
         => input.Length > 5; 
 ```
 - If we run our test coverage again, we have a different result
+
 ![Line coverage result](img/line-coverage-100.png)
+
 - Why?
   - `Code coverage` = `Lines of executed code` - 1 / `Total number of lines` - 1
 - Test still verifies the same number of possible outcomes…
@@ -63,7 +67,9 @@ public static bool IsLong(string input)
 ### Branch coverage
 - Focuses on control structures : **if, switch, ... statements**
 - Shows how many of such control structures are traversed by at least one test in the suite
+
 ![Branch coverage result](img/branch-coverage.png)
+
 - 2 branches in our production code : `Length > 5` && `Length < 5`
   - With this metric and the actual source code, we should obtain a coverage of `50%`
 
@@ -92,11 +98,14 @@ public class DemoTests
   - When doing some TDD
 
 Of course, there are automated tools
+
 ![Trump mutant](img/mutant.jpg)
 
 #### How it works?
 - Step 1: Generate mutants
+
 ![Generate mutants](img/generate-mutants.png)
+
 - Step 2: Kill them all
 - Check that all your tests are green on the non-mutated business code
 - Take the mutants one by one 
@@ -119,6 +128,7 @@ I am NOT detected
 So the code is NOT correctly tested
 ```
 ![Mutation score](img/mutation-score.png)
+
 > The higher the percentage of mutants killed, the more effective your tests are.
 
 ![Mutation score](img/stryker.svg)
