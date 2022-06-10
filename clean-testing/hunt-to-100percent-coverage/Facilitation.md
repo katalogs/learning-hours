@@ -3,10 +3,10 @@
 - Understand that 100% code coverage does NOT mean high test suite quality
 - Understand what is mutation testing and how it can help us
 
-## Connect - Test Quality
+## Connect - Test Quality - 5'
 In pairs, discuss the question `How can we measure test quality?`
 
-## Concepts - Code coverage
+## Concepts - Code coverage - 15'
 > A coverage metric showing how much source code a test suite executes, from none to 100%
 
 ![Line Coverage](img/line-coverage.png)
@@ -137,7 +137,62 @@ So the code is NOT correctly tested
 - `Ignored`: The mutant wasn't tested because it is ignored. 
   - Not count against your mutation score but will show up in reports.
 
-## Concrete Practice - Let's kill some mutants
+## Concrete Practice - Let's kill some mutants - 30'
+- Open the `MutationKiller` solution
+- You can install `stryker` for dotner first if none
+```shell
+dotnet tool install -g dotnet-stryker
+```
+- Then run the command below in the folder of the test project
+  - `-o` will automatically open the report at then of the analysis
+```shell
+dotnet stryker -o
+```
 
-## Conclusion
+### Analysis - 15'
+- What do we learn from the command line ?
+- What do we learn from the report ?
+
+### What do we learn from this report?
+![Command line stryker](img/command-line.png)
+- Stryker has generated a mutant without test coverage
+  - It puts it away
+
+![Report](img/report.png)
+
+#### No mutation
+- Stryker can not apply any mutation on the files marked as `N/A`
+
+![No mutation](img/no-mutation.png)
+
+#### Missing assertions
+- 2 mutants survived
+
+![Missing assertions](img/missing-assertions.png)
+
+- If we take a look at the test code
+  - Assertions are still missing
+```c#
+[Fact]
+public void Should_Return_False_For_Abc() => Demo.IsLong("abc");
+```
+
+#### Detect missing cases / improvement
+- In `CustomerService`, it shows us that we do not assert the `ArgumentException` message
+  - Should we assert this string in our test ?
+    - Does it make sense in our context ? 
+    - Business ? Logs ? Future debugging ?
+
+![String message not asserted](img/not-enough-inventory.png)
+
+- In `Store`, we can see that:
+    - We have 1 not under test method `AddInventory`
+    - We can improve our coverage on the `HasEnoughInventory` method
+
+![String message not asserted](img/store-mutants.png)
+
+### Fix code - 15'
+Based on this analysis, fix the code
+
+## Conclusion - 10'
 
