@@ -137,9 +137,9 @@ So the code is NOT correctly tested
 - `Ignored`: The mutant wasn't tested because it is ignored. 
   - Not count against your mutation score but will show up in reports.
 
-## Concrete Practice - Let's kill some mutants - 30'
+## Concrete Practice - Let's kill some mutants - 35'
 - Open the `MutationKiller` solution
-- You can install `stryker` for dotner first if none
+- You must install `stryker` for dotnet first
 ```shell
 dotnet tool install -g dotnet-stryker
 ```
@@ -191,8 +191,64 @@ public void Should_Return_False_For_Abc() => Demo.IsLong("abc");
 
 ![String message not asserted](img/store-mutants.png)
 
-### Fix code - 15'
+### Fix the code - 15'
 Based on this analysis, fix the code
 
-## Conclusion - 10'
+### "Solution"
+#### Missing assertions
+- We add the missing test cases and assertions in `DemoTests`
+```c#
+public class DemoTests
+{
+    [Fact]
+    public void Should_Return_False_For_Abc() 
+        => Demo.IsLong("abc").Should().BeFalse();
+    
+    [Fact]
+    public void Should_Return_False_For_Abcde() 
+        => Demo.IsLong("abcde").Should().BeFalse();
+    
+    [Fact]
+    public void Should_Return_True_For_Abcdef() 
+        => Demo.IsLong("abcdef").Should().BeTrue();
+}
+```
 
+#### Detect missing cases / improvement
+- We decide that it may make sense to be sure that the exception message makes sens for our business so we assert it as well:
+```c#
+[Fact]
+public void It_Should_Fail_When_Not_Enough_Inventory()
+{
+    var updatedStore = CustomerService.Purchase(_store, ProductType.Book, 11);
+
+    updatedStore.IsFail().Should().BeTrue();
+    updatedStore
+        .FailureUnsafe()
+        .Should()
+        .BeOfType<ArgumentException>()
+        .Which.Message
+        .Should().Be("Not enough inventory");
+}
+```
+- We have 1 not under test method `AddInventory` in `Store`
+  - It was not used code a.k.a dead code so we remove iit
+- Regarding `HasEnoughInventory` we have a new test case to implement
+  - What happens if someone want to purchase the entire quantity of our inventory?
+```c#
+[Fact]
+public void It_Should_Purchase_Successfully_When_Same_Quantity_Than_in_Inventory()
+{
+    var updatedStore = CustomerService.Purchase(_store, ProductType.Book, BookQuantityInInventory);
+
+    updatedStore.IsSucc().Should().BeTrue();
+    updatedStore
+        .SuccessUnsafe()
+        .GetInventoryFor(ProductType.Book)
+        .Should()
+        .Be(0);
+}
+```
+
+## Conclusion - 5'
+What is the most important thing you learnt today about the topic?
