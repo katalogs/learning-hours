@@ -6,6 +6,7 @@ Each of them respect the 4C format as described [here](https://www.sammancoachin
 - [Generate Code from Usage](generate-code-from-usage/Facilitation.md)
 - [Understand the Mikado method](mikado-method/step-1/Facilitation.md)
 - [Discriminated Unions](discriminated-unions/Facilitation.md)
+- [Refactor Legacy Code with Seams](Seam-TripService/README.md)
 
 ## Test data builders
   - [Refactoring test inputs with Test Data Builders](test-data-builders/refactoring-test-inputs-with-test-data-builders/Facilitation.md)
