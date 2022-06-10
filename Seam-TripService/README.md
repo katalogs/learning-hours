@@ -16,15 +16,15 @@ Classer les snippets suivant selon la difficulté à tester la méthode:
 
 ![snip 3](imgs/Snippet3.png)
 
-L'intérêt est d'amorcer une discussion / réflexion sur l'exercice à venir, en prenant un bout de code simplifié mais très similaire.
-
-Si l'équipe a déjà vu le tell don't ask, on peut les amener à identifier ce smell sur le snippet 3.
+- L'intérêt est d'amorcer une discussion / réflexion sur l'exercice à venir, en prenant un bout de code simplifié mais très similaire. 
+  - Si l'équipe a déjà vu le `tell don't ask`, on peut les amener à identifier ce smell sur le snippet 3.
 
 ## Démo (10')
-Expliquer Nécessité de mettre en place une couverture de code satisfaisante avant de refactorer, ce schéma peut aider:
+Expliquer la nécessité de mettre en place une couverture de code satisfaisante avant de refactorer, ce schéma peut aider:
 ![test/refactor](imgs/ShortestTest_DeepestRefacto.png)
 
-Coder le premier test (partir du commit `fix(seam): nullabilite user`). On arrive normalement à la base de code actuelle.
+- Coder le premier test (partir du commit `fix(seam): nullabilite user`). 
+  - On arrive normalement à la base de code actuelle.
 
 ### Détail démo
 Test from shortest branch, on part sur le TripService, le premier test se fait sur l'exception
@@ -40,7 +40,8 @@ public void should_throw_exception_when_user_is_not_logged()
 }
 ```
 
-Le test casse, on va extraire la ligne problématique, via l'ide (ctrl+alt+m) --> mise en place du seam. La passer en protected virtual
+- Le test casse, on va extraire la ligne problématique, via l'ide (ctrl+alt+m) --> mise en place du seam
+  - Faire en sorte de pouvoir la surcharger -> passer en protected virtual en C#
 ```C#
 protected virtual User.User? GetLoggedUser()  
 {  
@@ -48,7 +49,7 @@ protected virtual User.User? GetLoggedUser()
 }
 ```
 
-puis on génére la classe interne
+- puis on génére la classe interne
 ```c#
 [Fact]  
 public void should_throw_exception_when_user_is_not_logged()  
@@ -67,13 +68,12 @@ public class TestableTripService : TripService
 ```
 
 ## Practice
-Continuer l'ajout des tests jusqu'à couvrir l'ensemble du code.
+- Continuer l'ajout des tests jusqu'à couvrir l'ensemble du code. 
+- Il y aura un autre seam à faire pour la `DAO`, et la nécessité d'ajouter la paramétrisation au user retourné par le GetLoggedUser.
+- Possibilité d'utiliser des `tests data builders` si l'équipe connaît le pattern.
 
-Il y aura un autre seam à faire pour la DAO, et la nécessité d'ajouter la paramétrisation au user retourné par le GetLoggedUser.
-
-Possibilité d'utiliser des tests data builders si l'équipe connaît le pattern.
-
-Si il reste du temps, enchaîner sur la partie recfacto.
+Si il reste du temps, enchaîner sur la partie refacto.
 
 ## Conclusion (5')
-Voyez-vous des éléments de votre code où appliquer cette stratégie test/refacto ? où utiliser les seams pour mettre en place une première couche de tests ?
+- Voyez-vous des éléments de votre code où appliquer cette stratégie test/refacto ? 
+  - Où utiliser les seams pour mettre en place une première couche de tests ?
