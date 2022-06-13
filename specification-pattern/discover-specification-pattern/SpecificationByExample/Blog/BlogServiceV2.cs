@@ -7,13 +7,5 @@ namespace Blog
 
         public int CountValidPostsAfter(DateTime postedAfter)
             => throw new NotImplementedException();
-        // _blogRepository
-        // .FetchAll()
-        // .Where(blog => new ActivatedBlogSpecification().IsSatisfiedBy(blog))
-        // .SelectMany(blog => blog.Posts)
-        // .Count(post => new ActivatedSpecification()
-        //     .And(new NotRemovedSpecification())
-        //     .And(new NotBannedSpecification())
-        //     .And(new CreatedAfterSpecification(postedAfter)).IsSatisfiedBy(post));
     }
 }
