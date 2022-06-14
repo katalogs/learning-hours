@@ -31,6 +31,8 @@ Definitions:
 - We replace a real object with a test-specific object that feeds the desired indirect inputs into the system under
   test.
 
+![Word association](img/word-association.jpg)
+
 ### Correction
 
 - `Test Double`: We replace a component on which the Subject Under Test depends with a "test-specific equivalent."
@@ -236,7 +238,7 @@ private class SpyJokeRepository : IJokeRepository
 }
 ```
 
-Spies libraries can be really powerful in terms of verification.
+Libraries can be really powerful in terms of verification.
 
 ### [Mock](http://xunitpatterns.com/Mock%20Object.html)
 
@@ -288,9 +290,18 @@ public class MockNotifier : INotifier
 
 ![Test Doubles explained](img/test-doubles.png)
 
-## Concrete Practice -
+## Concrete Practice - With a Library
 
-## Conclusion
+- Refactor the test code to use libraries instead of the actual dedicated implementations
+- Use your favorite libraries
+    - In C# the most famous ones are: [Moq](https://documentation.help/Moq/)
+      , [NSubstitute](https://nsubstitute.github.io/help/getting-started/), [FakeItEasy](https://fakeiteasy.github.io/)
+
+![New Library](img/library.png)
+
+## Conclusion - Main stuff
+
+What is the most important thing you learnt today about the topic?
 
 ### Resources
 
