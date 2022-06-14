@@ -1,0 +1,22 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mutation", "MutationKiller\Mutation.csproj", "{4137A2FE-7F32-4578-94C9-5EE598F880B3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mutation.Tests", "MutationKiller.Tests\Mutation.Tests.csproj", "{6450BFF4-4A34-4DD7-AAF5-DBE405248093}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{4137A2FE-7F32-4578-94C9-5EE598F880B3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4137A2FE-7F32-4578-94C9-5EE598F880B3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4137A2FE-7F32-4578-94C9-5EE598F880B3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4137A2FE-7F32-4578-94C9-5EE598F880B3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6450BFF4-4A34-4DD7-AAF5-DBE405248093}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6450BFF4-4A34-4DD7-AAF5-DBE405248093}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6450BFF4-4A34-4DD7-AAF5-DBE405248093}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6450BFF4-4A34-4DD7-AAF5-DBE405248093}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
