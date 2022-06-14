@@ -6,7 +6,43 @@
 - Clarify the vocabulary related to `Test Doubles`
 - Explain their utility depending on the encountered problem
 
-## Connect - Word Association
+## Connect - Word Definition
+
+Associate those words with their definitions below:
+
+- `Test Double`
+- `Spy`
+- `Mock`
+- `Fake`
+- `Stub`
+- `Dummy`
+- `SUT`
+
+Definitions:
+
+- Replace an object the system under test (SUT) depends on with a test-specific object that verifies it is being used
+  correctly by the SUT.
+- Test Double to capture the indirect output calls made to another component by the system under test (SUT) for later
+  verification by the test.
+- We replace a component on which the Subject Under Test depends with a "test-specific equivalent."
+- Replace a component that the SUT depends on with a much lighter-weight implementation.
+- Subject Under Test
+- We pass an object that has no implementation as an argument of a method called on the SUT.
+- We replace a real object with a test-specific object that feeds the desired indirect inputs into the system under
+  test.
+
+### Correction
+
+- `Test Double`: We replace a component on which the Subject Under Test depends with a "test-specific equivalent."
+- `Spy`: Test Double to capture the indirect output calls made to another component by the system under test (SUT) for
+  later verification by the test.
+- `Fake`: Replace a component that the SUT depends on with a much lighter-weight implementation.
+- `Stub`: We replace a real object with a test-specific object that feeds the desired indirect inputs into the system
+  under test.
+- `Mock`: Replace an object the system under test (SUT) depends on with a test-specific object that verifies it is being
+  used correctly by the SUT.
+- `Dummy`: We pass an object that has no implementation as an argument of a method called on the SUT.
+- `SUT`: Subject Under Test
 
 ## Concepts - 50 Shades of Test Doubles
 
@@ -31,9 +67,15 @@ dependencies:
 - Call to a database
 - Non deterministic data : random or temporal for example
 
+### Fast
+
+We replace a component on which the SUT depends with a `test-specific equivalent.` -> that keeps our tests `Fast` in
+addition of previously mentioned characteristics.
 > There are variations in types of Test Doubles depending on their intent
 
 ### Dummy
+
+> We pass an object that has no implementation as an argument of a method called on the SUT.
 
 `Dummy` is a placeholder required to pass the unit test :
 
@@ -64,7 +106,9 @@ public void Should_Throw_An_ArgumentException_When_Divide_By_Zero()
 var numerator = new Random().Next(); 
 ```
 
-### Fake
+### [Fake](http://xunitpatterns.com/Fake%20Object.html)
+
+> Replace a component that the SUT depends on with a much lighter-weight implementation.
 
 Fake is used to simplify a dependency so that unit test can pass easily:
 
@@ -108,7 +152,18 @@ public class FakeJokeRepository : IJokeRepository
 }
 ```
 
-### Stub
+### [Stub](http://xunitpatterns.com/Test%20Stub.html)
+
+> We replace a real object with a test-specific object that feeds the desired indirect inputs into the system under test.
+
+- Stub is used to provide indirect inputs to the SUT coming from its collaborators / dependencies
+    - These inputs could be in form of objects, exceptions or primitive values
+- Help `to emulate and examine in-coming interactions`
+- We replace a real object with a test-specific object that feeds the desired indirect inputs into the system under test
+
+### [Mock](http://xunitpatterns.com/Mock%20Object.html)
+
+> Replace an object the system under test (SUT) depends on with a test-specific object that verifies it is being used correctly by the SUT.
 
 ### Limits
 
