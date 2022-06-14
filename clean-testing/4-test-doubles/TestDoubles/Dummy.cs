@@ -4,7 +4,7 @@ using Xunit;
 
 namespace TestDoubles;
 
-public class UnitTest1
+public class Dummy
 {
     private readonly Calculator _calculator = new();
 
@@ -24,7 +24,7 @@ public class Calculator
 
 {
     public int Divide(int numerator, int denominator)
-    {
-        throw new System.NotImplementedException();
-    }
+        => denominator == 0
+            ? throw new ArgumentException("Denominator can not be zero")
+            : numerator / denominator;
 }
