@@ -135,11 +135,9 @@ public void Should_Notify_Twice_When_Receiving_A_Scenario_And_Having_Two_Clients
 
     logs.ToString()
         .Should()
-        .Contain(
-            "Hello : Cliff Booth, I have just received a new scenario called 'The 14 fists of McCluskey' !!!")
+        .Contain("Hello : Cliff Booth, I have just received a new scenario called 'The 14 fists of McCluskey' !!!")
         .And
-        .Contain(
-            "Hello : Rick Dalton, I have just received a new scenario called 'The 14 fists of McCluskey' !!!");
+        .Contain("Hello : Rick Dalton, I have just received a new scenario called 'The 14 fists of McCluskey' !!!");
 }
 
 private class FakeNotifier : INotifier
@@ -154,7 +152,7 @@ private class FakeNotifier : INotifier
 ```
 
 - You could run your production code with `fakes` for testing purpose on specific environment
-- For the notifier example, you could use a `Fake` implementation on a `Test` environment in whcih instead of sending
+- For the notifier example, you could use a `Fake` implementation on a `Test` environment in which instead of sending
   notifications will write in application logs
 
 ### [Stub](http://xunitpatterns.com/Test%20Stub.html)
@@ -256,13 +254,13 @@ public void Should_Notify_Twice_When_Receiving_A_Scenario_And_Having_Two_Clients
         new("Rick Dalton", "rick.dalton@double.com")
     };
 
-    var notifier = new MockNotifier();
-    var scriptEventHandler = new ScenarioReceivedEventHandler(notifier, clients);
+    var notifierMock = new MockNotifier();
+    var scriptEventHandler = new ScenarioReceivedEventHandler(notifierMock, clients);
     var @event = new ScenarioReceived("The 14 fists of McCluskey");
 
     scriptEventHandler.Handle(@event);
 
-    notifier
+    notifierMock
         .HasBeenCalledForAll(clients, @event)
         .Should()
         .BeTrue();
@@ -298,6 +296,10 @@ public class MockNotifier : INotifier
       , [NSubstitute](https://nsubstitute.github.io/help/getting-started/), [FakeItEasy](https://fakeiteasy.github.io/)
 
 ![New Library](img/library.png)
+
+### Solution
+
+Solution is available [here](step-by-step.md)
 
 ## Conclusion - Main stuff
 
