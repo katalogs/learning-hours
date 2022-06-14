@@ -1,65 +1,76 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using FluentAssertions;
 using Xunit;
+using Xunit.Abstractions;
+using Xunit.Sdk;
 
-namespace TestDoubles
+namespace TestDoubles;
+
+public class Fake
 {
-    public class Fake
+    private readonly ITestOutputHelper _output;
+
+    public Fake(ITestOutputHelper output) => _output = output;
+
+    [Fact]
+    public void Should_Notify_Twice_When_Receiving_A_Scenario_And_Having_Two_Clients()
     {
-        [Fact]
-        public async Task Create_A_Joke_Use_Case_Should_Save_Good_Jokes()
+        var registeredUsers = new List<Client>
         {
-            var fakeJokeRepository = new FakeJokeRepository();
-            var useCase = new CreateAJokeUseCase(fakeJokeRepository);
-            var request = new CreateJokeRequest(
-                "Anonymous",
-                "Quelle partie du légume ne passe pas dans le mixer ? La chaise roulante"
-            );
+            new("Cliff Booth", "cliff.booth@double.com"),
+            new("Rick Dalton", "rick.dalton@double.com")
+        };
 
-            await useCase.HandleAsync(request);
+        var notifier = new FakeNotifier(text => _output.WriteLine(text));
+        var scriptEventHandler = new ScenarioReceivedEventHandler(notifier, registeredUsers);
 
-            fakeJokeRepository
-                .ShouldContain(request);
-        }
+        scriptEventHandler.Handle(new ScenarioReceived("The 14 fists of McCluskey"));
 
-        private class CreateAJokeUseCase
-        {
-            private readonly IJokeRepository _jokeRepository;
-
-            public CreateAJokeUseCase(IJokeRepository jokeRepository) => _jokeRepository = jokeRepository;
-
-
-            public async Task HandleAsync(CreateJokeRequest createJokeRequest) =>
-                await _jokeRepository
-                    .Save(ParseJoke(createJokeRequest));
-
-            private static Joke ParseJoke(CreateJokeRequest createJokeRequest) =>
-                new(createJokeRequest.Author, createJokeRequest.Text);
-        }
-
-        private interface IJokeRepository
-        {
-            public Task Save(Joke joke);
-        }
-
-        private record Joke(string Author, string Text);
-
-        private record CreateJokeRequest(string Author, string Text);
-
-        private class FakeJokeRepository : IJokeRepository
-        {
-            private readonly List<Joke> _jokes = new();
-
-            public Task Save(Joke joke)
-                => Task.Run(() => _jokes.Add(joke));
-
-            public void ShouldContain(CreateJokeRequest request, int expectedCount = 1) =>
-                _jokes
-                    .Where(j => j.Author == request.Author && j.Text == request.Text)
-                    .Should()
-                    .HaveCount(expectedCount);
-        }
+        ((TestOutputHelper) _output).Output
+            .Should()
+            .Contain(
+                "Hello : Cliff Booth, I have just received a new scenario called 'The 14 fists of McCluskey' !!!")
+            .And
+            .Contain(
+                "Hello : Rick Dalton, I have just received a new scenario called 'The 14 fists of McCluskey' !!!");
     }
+
+    private record ScenarioReceived(string Title);
+
+    private class ScenarioReceivedEventHandler
+    {
+        private readonly INotifier _notifier;
+        private readonly IEnumerable<Client> _registeredUsers;
+
+        public ScenarioReceivedEventHandler(INotifier notifier, IEnumerable<Client> registeredUsers)
+        {
+            _notifier = notifier;
+            _registeredUsers = registeredUsers;
+        }
+
+        public void Handle(ScenarioReceived scenarioReceived) =>
+            _registeredUsers
+                .ToList()
+                .ForEach(user => _notifier.Notify(user, scenarioReceived));
+    }
+
+    private class FakeNotifier : INotifier
+    {
+        private readonly Action<string> _console;
+
+        public FakeNotifier(Action<string> console) => _console = console;
+
+        public void Notify(Client client, ScenarioReceived scenarioReceived) =>
+            _console(
+                $"Hello : {client.Name}, I have just received a new scenario called '{scenarioReceived.Title}' !!!");
+    }
+
+    private interface INotifier
+    {
+        void Notify(Client client, ScenarioReceived scenarioReceived);
+    }
+
+    private record Client(string Name, string Email);
 }

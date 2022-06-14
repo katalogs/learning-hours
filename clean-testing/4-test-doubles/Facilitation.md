@@ -117,10 +117,96 @@ Fake is used to simplify a dependency so that unit test can pass easily:
 
 ```c#
 [Fact]
+public void Should_Notify_Twice_When_Receiving_A_Scenario_And_Having_Two_Clients()
+{
+    var registeredUsers = new List<Client>
+    {
+        new("Cliff Booth", "cliff.booth@double.com"),
+        new("Rick Dalton", "rick.dalton@double.com")
+    };
+
+    var notifier = new FakeNotifier(text => _output.WriteLine(text));
+    var scriptEventHandler = new ScenarioReceivedEventHandler(notifier, registeredUsers);
+
+    scriptEventHandler.Handle(new ScenarioReceived("The 14 fists of McCluskey"));
+
+    ((TestOutputHelper) _output).Output
+        .Should()
+        .Contain("Hello : Cliff Booth, I have just received a new scenario called 'The 14 fists of McCluskey' !!!")
+        .And
+        .Contain("Hello : Rick Dalton, I have just received a new scenario called 'The 14 fists of McCluskey' !!!");
+}
+
+private class FakeNotifier : INotifier
+{
+    private readonly Action<string> _console;
+
+    public FakeNotifier(Action<string> console) => _console = console;
+
+    public void Notify(Client client, ScenarioReceived scenarioReceived) =>
+        _console($"Hello : {client.Name}, I have just received a new scenario called '{scenarioReceived.Title}' !!!");
+}
+```
+
+- You could run your production code with `fakes` for testing purpose on specific environment
+- For the notifier example, you could use a `Fake` implementation on a `Test` environment in whcih instead of sending
+  notifications will write in application logs
+
+### [Stub](http://xunitpatterns.com/Test%20Stub.html)
+
+> We replace a real object with a test-specific object that feeds the desired indirect inputs into the system under test.
+
+- Stub is used to provide indirect inputs to the SUT coming from its collaborators / dependencies
+    - These inputs could be in form of objects, exceptions or primitive values
+- Help `to emulate and examine in-coming interactions`
+- We replace a real object with a test-specific object that feeds the desired indirect inputs into the system under test
+
+```c#
+ [Fact]
+public void Should_Divide_A_Numerator_By_A_Denominator_When_Authorization_Is_Accepted()
+{
+    var authorizerStub = new AllowAccessAuthorizer();
+    var calculator = new Calculator(authorizerStub);
+
+    calculator.Divide(9, 3)
+        .Should()
+        .Be(3);
+}
+
+[Fact]
+public void Should_Divide_A_Numerator_By_A_Denominator_When_Authorization_Is_Denied()
+{
+    var authorizerStub = new DenyAccessAuthorizer();
+    var calculator = new Calculator(authorizerStub);
+
+    calculator.Invoking(_ => _.Divide(9, 3))
+        .Should()
+        .Throw<UnauthorizedAccessException>();
+}
+
+public class AllowAccessAuthorizer : IAuthorizer
+{
+    public bool Authorize() => true;
+}
+
+public class DenyAccessAuthorizer : IAuthorizer
+{
+    public bool Authorize() => false;
+}
+```
+
+We could use a library for this purpose.
+
+### [Spy](http://xunitpatterns.com/Mock%20Object.html)
+
+> Use a Test Double to capture the indirect output calls made to another component by the system under test (SUT) for later verification by the test.
+
+```c#
+[Fact]
 public async Task Create_A_Joke_Use_Case_Should_Save_Good_Jokes()
 {
-    var fakeJokeRepository = new FakeJokeRepository();
-    var useCase = new CreateAJokeUseCase(fakeJokeRepository);
+    var spyJokeRepository = new SpyJokeRepository();
+    var useCase = new CreateAJokeUseCase(spyJokeRepository);
     var request = new CreateJokeRequest(
         "Anonymous",
         "Quelle partie du légume ne passe pas dans le mixer ? La chaise roulante"
@@ -128,16 +214,11 @@ public async Task Create_A_Joke_Use_Case_Should_Save_Good_Jokes()
 
     await useCase.HandleAsync(request);
 
-    fakeJokeRepository
+    spyJokeRepository
         .ShouldContain(request);
 }
 
-public interface IJokeRepository
-{
-    public Task Save(Joke joke);
-}
-
-public class FakeJokeRepository : IJokeRepository
+private class SpyJokeRepository : IJokeRepository
 {
     private readonly List<Joke> _jokes = new();
 
@@ -152,18 +233,11 @@ public class FakeJokeRepository : IJokeRepository
 }
 ```
 
-### [Stub](http://xunitpatterns.com/Test%20Stub.html)
-
-> We replace a real object with a test-specific object that feeds the desired indirect inputs into the system under test.
-
-- Stub is used to provide indirect inputs to the SUT coming from its collaborators / dependencies
-    - These inputs could be in form of objects, exceptions or primitive values
-- Help `to emulate and examine in-coming interactions`
-- We replace a real object with a test-specific object that feeds the desired indirect inputs into the system under test
-
 ### [Mock](http://xunitpatterns.com/Mock%20Object.html)
 
 > Replace an object the system under test (SUT) depends on with a test-specific object that verifies it is being used correctly by the SUT.
+
+-
 
 ### Limits
 
