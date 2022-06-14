@@ -2,7 +2,7 @@ using System;
 using FluentAssertions;
 using Xunit;
 
-namespace TestDoubles
+namespace TestDoubles.Dummy
 {
     public class Dummy
     {
@@ -17,15 +17,6 @@ namespace TestDoubles
             _calculator.Invoking(_ => _.Divide(numerator, zero))
                 .Should()
                 .Throw<ArgumentException>();
-        }
-
-        private class Calculator
-
-        {
-            public int Divide(int numerator, int denominator)
-                => denominator == 0
-                    ? throw new ArgumentException("Denominator can not be zero")
-                    : numerator / denominator;
         }
     }
 }

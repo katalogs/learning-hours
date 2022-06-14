@@ -119,22 +119,25 @@ Fake is used to simplify a dependency so that unit test can pass easily:
 [Fact]
 public void Should_Notify_Twice_When_Receiving_A_Scenario_And_Having_Two_Clients()
 {
+    using var logs = new StringWriter();
     var registeredUsers = new List<Client>
     {
         new("Cliff Booth", "cliff.booth@double.com"),
         new("Rick Dalton", "rick.dalton@double.com")
     };
 
-    var notifier = new FakeNotifier(text => _output.WriteLine(text));
+    var notifier = new FakeNotifier(text => logs.WriteLine(text));
     var scriptEventHandler = new ScenarioReceivedEventHandler(notifier, registeredUsers);
 
     scriptEventHandler.Handle(new ScenarioReceived("The 14 fists of McCluskey"));
 
-    ((TestOutputHelper) _output).Output
+    logs.ToString()
         .Should()
-        .Contain("Hello : Cliff Booth, I have just received a new scenario called 'The 14 fists of McCluskey' !!!")
+        .Contain(
+            "Hello : Cliff Booth, I have just received a new scenario called 'The 14 fists of McCluskey' !!!")
         .And
-        .Contain("Hello : Rick Dalton, I have just received a new scenario called 'The 14 fists of McCluskey' !!!");
+        .Contain(
+            "Hello : Rick Dalton, I have just received a new scenario called 'The 14 fists of McCluskey' !!!");
 }
 
 private class FakeNotifier : INotifier
