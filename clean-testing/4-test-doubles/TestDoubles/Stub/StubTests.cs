@@ -4,7 +4,7 @@ using Xunit;
 
 namespace TestDoubles.Stub
 {
-    public class Stub
+    public class StubTests
     {
         [Fact]
         public void Should_Divide_A_Numerator_By_A_Denominator_When_Authorization_Is_Accepted()

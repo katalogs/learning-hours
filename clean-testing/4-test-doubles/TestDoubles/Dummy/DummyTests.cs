@@ -4,7 +4,7 @@ using Xunit;
 
 namespace TestDoubles.Dummy
 {
-    public class Dummy
+    public class DummyTests
     {
         private readonly Calculator _calculator = new();
 

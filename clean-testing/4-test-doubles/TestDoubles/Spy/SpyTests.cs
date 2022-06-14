@@ -3,7 +3,7 @@ using Xunit;
 
 namespace TestDoubles.Spy
 {
-    public class Spy
+    public class SpyTests
     {
         [Fact]
         public async Task Create_A_Joke_Use_Case_Should_Save_Good_Jokes()

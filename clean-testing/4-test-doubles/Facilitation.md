@@ -236,11 +236,48 @@ private class SpyJokeRepository : IJokeRepository
 }
 ```
 
+Spies libraries can be really powerful in terms of verification.
+
 ### [Mock](http://xunitpatterns.com/Mock%20Object.html)
 
 > Replace an object the system under test (SUT) depends on with a test-specific object that verifies it is being used correctly by the SUT.
 
--
+- Help `to emulate and examine out-coming interactions`
+
+```c#
+[Fact]
+public void Should_Notify_Twice_When_Receiving_A_Scenario_And_Having_Two_Clients()
+{
+    var clients = new List<Client>
+    {
+        new("Cliff Booth", "cliff.booth@double.com"),
+        new("Rick Dalton", "rick.dalton@double.com")
+    };
+
+    var notifier = new MockNotifier();
+    var scriptEventHandler = new ScenarioReceivedEventHandler(notifier, clients);
+    var @event = new ScenarioReceived("The 14 fists of McCluskey");
+
+    scriptEventHandler.Handle(@event);
+
+    notifier
+        .HasBeenCalledForAll(clients, @event)
+        .Should()
+        .BeTrue();
+}
+
+public class MockNotifier : INotifier
+{
+    private readonly List<(Client, ScenarioReceived)> _notifications = new();
+
+    public void Notify(Client client, ScenarioReceived scenarioReceived) =>
+        _notifications.Add((client, scenarioReceived));
+
+    public bool HasBeenCalledForAll(IEnumerable<Client> clients, ScenarioReceived @event) =>
+        clients.ToList()
+            .TrueForAll(client => _notifications.Contains((client, @event)));
+}
+```
 
 ### Limits
 
