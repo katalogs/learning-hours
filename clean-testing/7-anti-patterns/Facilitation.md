@@ -1,69 +1,254 @@
-# Styles of Unit Tests
+# Test anti-patterns
 ## Learning Goals
-- Understand the 3 types of Unit Tests
-- Have in mind the drawbacks of the different styles and how/why to migrate from one to another
+- Identify anti-patterns in tests
+- Pay the same care to test code as to production code
 
-## Connect - Style with styles
-From the code snippets below, name which `Unit Test` style is used in each one :
+## Connect - Anti-patterns? (10 min)
+![Anti patterns](img/anti-patterns.jpg)
 
+Open the `Anti-Patterns` solution and identify anti-patterns from the 3 test classes
+
+## Concepts - Common anti-patterns (10 min)
+### Leaking algorithm implementation in tests
 ```c#
-// Snippet 1
-[Fact]
-public void Discount_Of_2_Products_Should_Be_2_Percent()
+public class PriceEngineTests
 {
-    var product1 = new Product("Kaamelott");
-    var product2 = new Product("Free Guy");
+    [Fact]
+    public void Discount_Of_3_Products_Should_Be_3_Percent()
+    {
+        var products = new List<Product> {new("P1"), new("P2"), new("P3")};
+        var discount = PriceEngine.CalculateDiscount(products.ToArray());
 
-    var discount = PriceEngine.CalculateDiscount(product1, product2);
-    
-    discount.Should().Be(0.02);
+        // We leak the algorithm implementation in tests
+        // We have duplicated the calculation detail here
+        discount.Should()
+            .Be(products.Count * 0.01);
+    }
 }
 
-// Snippet 2
-[Fact]
-public void Greet_A_User_Should_Send_An_Email_To_It()
+public static class PriceEngine
 {
-    const string email = "john.doe@email.com";
-    var emailGatewayMock = new Mock<IEmailGateway>();
-    var sut = new Controller(emailGatewayMock.Object);
-    
-    sut.GreetUser(email);
-
-    emailGatewayMock.Verify(e => e.SendGreetingsEmail(email), Times.Once);
-}
-
-// Snippet 3
-[Fact]
-public void It_Should_Add_Given_Product_To_The_Order()
-{
-    var product = new Product("Free Guy");
-    var sut = new Order();
-
-    sut.Add(product);
-
-    // Verify the state
-    sut.Products.Should()
-        .HaveCount(1)
-        .And.Satisfy(item => item.Equals(product));
+    public static double CalculateDiscount(params Product[] products) 
+        => Math.Min(products.Length * 0.01, 0.2);
 }
 ```
 
-Code snippets and the associated production code are available in the `kata` folder -> Demo projects
+> It is fine, to use "hardcoded" values in test. It is the expected result from our test case.
 
-## Concepts - Styles and costs
-![3 styles of Unit Tests](img/3-styles-of-unit-tests.png)
+### Test external code/lib
+```c#
+public class TodoTests
+{
+    [Fact]
+    public void It_Should_Search_On_Repository_With_The_Given_Text()
+    {
+        var todoRepositoryMock = new Mock<ITodoRepository>(Strict);
+        var todoService = new TodoService(todoRepositoryMock.Object);
 
-> Refactorings are harder with "Communication-based" : if you change the interaction you need to change the tests as well.
+        var searchResults = new List<Todo>
+        {
+            new("Create miro", "add code samples in the board"),
+            new("Add myths in miro", "add mythbusters from ppt in the board")
+        };
 
-- Which kind of tests do mainly write?
+        const string searchedText = "miro";
 
-## Concrete Practice - Refactor to output-based testing
-Follow instructions available [here](kata/audit.md)
+        todoRepositoryMock
+            .Setup(repo => repo.Search(searchedText))
+            .Returns(searchResults);
+
+        // The S.U.T is a Test Double...
+        var results = todoRepositoryMock.Object.Search(searchedText);
+
+        // Assert that the call on our mock returns what we setup...
+        // We test moq here
+        results.Should().BeEquivalentTo(searchResults);
+        todoRepositoryMock.Verify(repo => repo.Search(searchedText), Times.Once);
+    }
+}
+```
+
+> Never use a Mock as SUT. If not familiar : using AAA in comments can help
+
+### Only 1 assert per test
+```c#
+public class BlogTests
+{
+    [Fact]
+    public void It_Should_Return_a_Right_For_Valid_Comment()
+    {
+        var article = new Article(
+            "Lorem Ipsum",
+            "consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore"
+        );
+
+        var result = article.AddComment("Amazing article !!!", "Pablo Escobar");
+
+        result.IsRight.Should().BeTrue();
+    }
+
+    [Fact]
+    public void It_Should_Add_A_Comment_With_The_Given_Text()
+    {
+        var article = new Article(
+            "Lorem Ipsum",
+            "consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore"
+        );
+
+        const string text = "Amazing article !!!";
+        var result = article.AddComment(text, "Pablo Escobar");
+
+        result.Should()
+            .BeRight(right => right.Comments
+                .Should()
+                .HaveCount(1).And
+                .Satisfy(comment => comment.Text == text)
+            );
+    }
+
+    [Fact]
+    public void It_Should_Add_A_Comment_With_The_Given_Author()
+    {
+        var article = new Article(
+            "Lorem Ipsum",
+            "consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore"
+        );
+
+        const string author = "Pablo Escobar";
+        var result = article.AddComment("Amazing article !!!", author);
+
+        result.Should()
+            .BeRight(right => right.Comments
+                .Should()
+                .HaveCount(1).And
+                .Satisfy(comment => comment.Author == author)
+            );
+    }
+
+    [Fact]
+    public void It_Should_Add_A_Comment_With_The_Date_Of_The_Day()
+    {
+        var article = new Article(
+            "Lorem Ipsum",
+            "consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore"
+        );
+
+        var result = article.AddComment("Amazing article !!!", "Pablo Escobar");
+    }
+
+    [Fact]
+    public void It_Should_Add_A_Left_When_Adding_Existing_Comment()
+    {
+        var article = new Article(
+            "Lorem Ipsum",
+            "consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore"
+        );
+
+        var result = article.AddComment("Amazing article !!!", "Pablo Escobar")
+            .Map(a => a.AddComment("Amazing article !!!", "Pablo Escobar"))
+            .Flatten();
+
+        result.IsLeft.Should().BeTrue();
+    }
+}
+```
+4 tests to maintain but here we check a single behavior : `add a comment in an article`
+
+> Tests should be behavior oriented not data oriented
+
+### Technical concepts in test names
+```c#
+[Fact]
+// What is a Right from a business perspective
+public void It_Should_Return_a_Right_For_Valid_Comment()
+{
+    var article = new Article(
+        "Lorem Ipsum",
+        "consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore"
+    );
+
+    var result = article.AddComment("Amazing article !!!", "Pablo Escobar");
+
+    result.IsRight.Should().BeTrue();
+}
+
+[Fact]
+// What is a Left from a business perspective
+public void It_Should_Add_A_Left_When_Adding_Existing_Comment()
+{
+    var article = new Article(
+        "Lorem Ipsum",
+        "consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore"
+    );
+
+    var result = article.AddComment("Amazing article !!!", "Pablo Escobar")
+        .Map(a => a.AddComment("Amazing article !!!", "Pablo Escobar"))
+        .Flatten();
+
+    result.IsLeft.Should().BeTrue();
+}
+```
+
+### Ambiguous naming
+```c#
+[Fact]
+// What is a Valid Comment?
+public void It_Should_Return_a_Right_For_Valid_Comment()
+{
+    var article = new Article(
+        "Lorem Ipsum",
+        "consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore"
+    );
+
+    var result = article.AddComment("Amazing article !!!", "Pablo Escobar");
+
+    result.IsRight.Should().BeTrue();
+}
+```
+
+> Avoid ambiguous names by using more descriptive names
+
+### Missing/shitty assertions
+```c#
+[Fact]
+public void It_Should_Add_A_Comment_With_The_Date_Of_The_Day()
+{
+    var article = new Article(
+        "Lorem Ipsum",
+        "consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore"
+    );
+
+    var result = article.AddComment("Amazing article !!!", "Pablo Escobar");
+}
+```
+Tests without or poor assertions do not provide any value 
+
+> Seeing a test failing is as important as seeing it passing
+
+### Duplication everywhere
+![Duplication everywhere](img/duplication.png)
+
+> Tests are code too proceed with the same care
+
+### Comment out failing tests
+The worst anti-pattern...
+
+![Comment out failing tests](img/commenting-failing-tests.jpg)
+
+A test that fails is a feedback loop for us
+Always apply these rules instead of commenting/disabling/deleting them:
+- [ ] Has a regression been found by the test? 
+  - Fix the code!
+- [ ] Is one of the assumptions of the test no longer valid? 
+  - Delete it!!
+- [ ] Has the application really changed the functionality under test for a valid reason? 
+  - Update the test!!
+
+> Never comment out failing tests
+
+## Concrete Practice - Refactor to useful / maintainable tests (35 min)
+Refactor previous anti-patterns
 
 ## Conclusion
-Compare the first version of the `unit test` with the new one.
-
-> Which one is the easiest to read and why ?
-
-### Resources
-Concepts are coming from Vladimir Khorikov's book : [Unit Testing Principles, Practices and Patterns](https://www.manning.com/books/unit-testing?gclid=CjwKCAjwvuGJBhB1EiwACU1AiXRex4_iJd4XNXoyWz_qGU_hCcov7JLwfgJUC7xZhzxQSSFLC2WRNhoCjMoQAvD_BwE)
+- Which anti-patterns have you already seen in your code base?
+- How could we fight them?
