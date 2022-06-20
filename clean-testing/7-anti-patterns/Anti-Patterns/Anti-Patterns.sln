@@ -1,0 +1,22 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Anti-Patterns", "Anti-Patterns\Anti-Patterns.csproj", "{A2E7BE31-AA9D-421F-92E7-3F282CE7BD4E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Anti-Patterns.Tests", "Anti-Patterns.Tests\Anti-Patterns.Tests.csproj", "{BA6EBFF6-6D0A-4347-AC20-0EDC7D69865E}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{A2E7BE31-AA9D-421F-92E7-3F282CE7BD4E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A2E7BE31-AA9D-421F-92E7-3F282CE7BD4E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A2E7BE31-AA9D-421F-92E7-3F282CE7BD4E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A2E7BE31-AA9D-421F-92E7-3F282CE7BD4E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BA6EBFF6-6D0A-4347-AC20-0EDC7D69865E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BA6EBFF6-6D0A-4347-AC20-0EDC7D69865E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BA6EBFF6-6D0A-4347-AC20-0EDC7D69865E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BA6EBFF6-6D0A-4347-AC20-0EDC7D69865E}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
