@@ -247,8 +247,9 @@ Always apply these rules instead of commenting/disabling/deleting them:
 > Never comment out failing tests
 
 ## Concrete Practice - Refactor to useful / maintainable tests (35 min)
-Refactor previous anti-patterns
+- Refactor previous anti-patterns
+- Step-by-step "solution" available [here](step-by-step.md)
 
-## Conclusion
+## Conclusion (5 min)
 - Which anti-patterns have you already seen in your code base?
 - How could we fight them?
