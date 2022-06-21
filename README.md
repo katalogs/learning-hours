@@ -12,7 +12,8 @@ Each of them respect the 4C format as described [here](https://www.sammancoachin
 - [Anatomy of Unit Tests](clean-testing/1-test-anatomy/Facilitation.md)
 - [Test Doubles](clean-testing/4-test-doubles/Facilitation.md)
 - [Styles of Unit Tests](clean-testing/6-styles-of-unit-tests/Facilitation.md)
-- [Hunt to 100% code coverage](clean-testing/8-hunt-to-100percent-coverage/Facilitation.md)
+- [The hunt for anti-patterns](clean-testing/7-anti-patterns/Facilitation.md)
+- [The hunt for 100% code coverage](clean-testing/8-hunt-to-100percent-coverage/Facilitation.md)
 
 ## Test data builders
 - [Refactoring test inputs with Test Data Builders](test-data-builders/refactoring-test-inputs-with-test-data-builders/Facilitation.md)
