@@ -70,6 +70,11 @@ public class TodoTests
 
 > Never use a Mock as SUT. If not familiar : using AAA in comments can help
 
+### Duplication everywhere
+![Duplication everywhere](img/duplication.png)
+
+> Tests are code too proceed with the same care
+
 ### Only 1 assert per test
 ```c#
 public class BlogTests
@@ -224,11 +229,6 @@ public void It_Should_Add_A_Comment_With_The_Date_Of_The_Day()
 Tests without or poor assertions do not provide any value 
 
 > Seeing a test failing is as important as seeing it passing
-
-### Duplication everywhere
-![Duplication everywhere](img/duplication.png)
-
-> Tests are code too proceed with the same care
 
 ### Comment out failing tests
 The worst anti-pattern...
