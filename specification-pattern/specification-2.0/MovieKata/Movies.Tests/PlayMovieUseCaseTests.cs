@@ -38,7 +38,7 @@ public class ReadMovieUseCaseTests
 
 
     [Fact(DisplayName =
-        "Given a customer living in France When they wants to play a movie on Putin Then they gets an approval")]
+        "Given a customer living in France When they wants to play a movie on Putin Then they get an approval")]
     public void AFranceResidentShouldBeAbleToPlayAMovieOnPutin()
     {
         var customer = ANewCustomer()

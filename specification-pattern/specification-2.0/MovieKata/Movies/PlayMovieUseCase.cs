@@ -9,5 +9,8 @@ public class PlayMovieUseCase
     public PlayMovieUseCase(ISpecificationFactory specificationFactory) => _specificationFactory = specificationFactory;
 
     public bool Handle(Customer customer, Movie movie)
-        => throw new NotImplementedException();
+        => _specificationFactory.Create<Customer>()
+            .IsMovieAuthorized(movie)
+            .IsSatisfiedBy(customer);
+
 }

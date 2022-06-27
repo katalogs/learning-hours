@@ -15,7 +15,6 @@ namespace Specification
         IQueryable<T> SatisfyingItemsFrom(IQueryable<T> query);
 
         ISpecification<T> Init(Expression<Func<T, bool>> expression);
-
         ISpecification<T> InitEmpty();
 
         ISpecification<T> And(ISpecification<T> other);
