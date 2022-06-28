@@ -91,3 +91,113 @@ public void AddXtoYAndDoubleIt()
 ```
 
 ## Lists are functors
+
+Here is the result, observe the `Bind` function -> monadic binding (`flatMap` in other languages)
+
+```c#
+using System;
+using FluentAssertions;
+using PlayWithFunctors.Persons;
+using Xunit;
+using static LanguageExt.Prelude;
+using static PlayWithFunctors.Persons.Data;
+using static PlayWithFunctors.Persons.PetType;
+
+namespace PlayWithFunctors
+{
+    public class ListsAreFunctors
+    {
+        [Fact]
+        public void GetFirstNamesOfAllPeople()
+        {
+            // Replace it, with a transformation method on people.
+            var firstNames = People.Map(p => p.FirstName);
+            var expectedFirstNames = Seq("Mary", "Bob", "Ted", "Jake", "Barry", "Terry", "Harry", "John");
+
+            firstNames.Should().BeEquivalentTo(expectedFirstNames);
+        }
+
+        [Fact]
+        public void GetNamesOfMarySmithsPets()
+        {
+            var person = GetPersonNamed("Mary Smith");
+
+            // Replace it, with a transformation method on people.
+            var names = person.Pets.Map(p => p.Name);
+
+            names.Single()
+                .Should()
+                .Be("Tabby");
+        }
+
+        private Person GetPersonNamed(string fullName) =>
+            People.Find(p => p.Named(fullName))
+                .IfNone(() => throw new ArgumentException("Can't find person named: " + fullName));
+
+        [Fact]
+        public void GetPeopleWithCats()
+        {
+            // Replace it, with a positive filtering method on people.
+            var peopleWithCats = People.Filter(p => p.HasPetType(Cat));
+
+            peopleWithCats.Should().HaveCount(2);
+        }
+
+        [Fact]
+        public void TotalPetAge()
+        {
+            var totalAge = People.Bind(p => p.Pets)
+                .Map(pet => pet.Age)
+                .Sum();
+
+            totalAge.Should().Be(17);
+        }
+
+        [Fact]
+        public void PetsNameSorted()
+        {
+            var sortedPetNames =
+                People.Bind(p => p.Pets)
+                    .Map(pet => pet.Name)
+                    .OrderBy(s => s)
+                    .ToSeq()
+                    .ToFullString();
+
+            sortedPetNames.Should()
+                .Be("Dolly, Fuzzy, Serpy, Speedy, Spike, Spot, Tabby, Tweety, Wuzzy");
+        }
+
+        [Fact]
+        public void SortByAge()
+        {
+            // Create a Seq<int> with ascending ordered age values.
+            var sortedAgeList = People.Bind(p => p.Pets)
+                .Map(pet => pet.Age)
+                .Distinct()
+                .OrderBy(a => a)
+                .ToSeq();
+
+            sortedAgeList.Should()
+                .HaveCount(4)
+                .And
+                .BeEquivalentTo(Seq(1, 2, 3, 4));
+        }
+
+        [Fact]
+        public void Top3OlderPets()
+        {
+            // Create a Seq<string> with the 3 older pets.
+            var top3OlderPets =
+                People.Bind(p => p.Pets)
+                    .OrderByDescending(pet => pet.Age)
+                    .Map(pet => pet.Name).ToSeq()
+                    .Take(3);
+
+            top3OlderPets.Should()
+                .HaveCount(3)
+                .And
+                .BeEquivalentTo(Seq("Spike", "Dolly", "Tabby"));
+        }
+    }
+}
+```

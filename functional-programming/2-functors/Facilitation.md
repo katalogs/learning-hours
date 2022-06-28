@@ -33,13 +33,17 @@ Pick only the correct items:
 ![4](img/4.png)
 ![5](img/5.png)
 ![6](img/6.png)
+![7](img/7.png)
 
 ## Concrete Practice - Fun with Functors
 
 Do the exercises in the following order:
 
-- FunctionsAreFunctors
+- `FunctionsAreFunctors`
 - Then do the same exercise with `Language-Ext`
+- Finish with the exercises in `ListsAreFunctors`
+
+Step-by-step solution available [here](step-by-step.md)
 
 ## Conclusion
 
@@ -47,4 +51,5 @@ Think about what we did today. If you had to explain the main idea of the topic 
 
 ## Resources
 
-[Functors, Applicatives, And Monads In Pictures](https://adit.io/posts/2013-04-17-functors,_applicatives,_and_monads_in_pictures.html#just-what-is-a-functor,-really?)
+- [Language-Ext collections](https://github.com/louthy/language-ext#immutable-collections)
+- [Functors, Applicatives, And Monads In Pictures](https://adit.io/posts/2013-04-17-functors,_applicatives,_and_monads_in_pictures.html#just-what-is-a-functor,-really?)
