@@ -205,11 +205,11 @@ public string FormatStatement()
 
 Where are we regarding `Pure Function` properties?
 
-```text
-You can see **all the input in the argument list**
-The execution is **deterministic** : the same input will always get the same output
-✅ You can see **all the output in the return value**
-```
+
+- You can see **all the input in the argument list**
+- The execution is **deterministic** : the same input will always get the same output
+- ✅ You can see **all the output in the return value**
+
 
 We need to improve our method definitions to have something more explicit:
 
@@ -368,10 +368,11 @@ public static class RentalCalculator
 
 Where are we regarding `Pure Function` properties?
 
-```text
-✅ You can see **all the input in the argument list**
-✅ The execution is **deterministic** : the same input will always get the same output
-✅ You can see **all the output in the return value**
-```
+
+- ✅ You can see **all the input in the argument list**
+- ✅ The execution is **deterministic** : the same input will always get the same output
+- ✅ You can see **all the output in the return value**
 
 > What can still be improved in term of transparency?
+
+Let's keep it for another hour 😉
