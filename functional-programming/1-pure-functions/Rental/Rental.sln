@@ -5,6 +5,7 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "docs", "docs", "{BD04AF45-47C6-431F-8256-C7D2BE96A1CB}"
 	ProjectSection(SolutionItems) = preProject
 		..\Facilitation.md = ..\Facilitation.md
+		..\step-by-step.md = ..\step-by-step.md
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rental", "Rental\Rental.csproj", "{91654DFB-E15C-4586-8DCE-A4CA78A002CC}"
