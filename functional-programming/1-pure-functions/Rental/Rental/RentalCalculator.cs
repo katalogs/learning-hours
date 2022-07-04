@@ -5,7 +5,6 @@ namespace Rental
     public class RentalCalculator
     {
         private readonly IEnumerable<Rental> _rentals;
-        public bool IsCalculated { get; private set; }
         public double Amount { get; private set; }
 
         public RentalCalculator(IEnumerable<Rental> rentals) => _rentals = rentals;
@@ -17,15 +16,12 @@ namespace Rental
                 throw new InvalidOperationException("No rentals on which perform calculation");
             }
 
+            Amount = 0;
+
             foreach (var rental in _rentals)
             {
-                if (!IsCalculated)
-                {
-                    Amount += rental.Amount;
-                }
+                Amount += rental.Amount;
             }
-            
-            IsCalculated = true;
         }
 
         private string FormatLine(Rental rental)

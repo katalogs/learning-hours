@@ -101,5 +101,17 @@ namespace Rental.Tests
                 .Throw<InvalidOperationException>()
                 .WithMessage("No rentals on which perform calculation");
         }
+
+        [Fact]
+        public void CalculateRentalsTwice()
+        {
+            var calculator = new RentalCalculator(SomeRentals());
+            calculator.Calculate();
+            calculator.Calculate();
+
+            calculator.Amount
+                .Should()
+                .BeApproximately(3037.24, 0.001);
+        }
     }
 }
