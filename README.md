@@ -23,3 +23,7 @@ Each of them respect the 4C format as described [here](https://www.sammancoachin
 ## Specification Pattern
 - [Discover the Specification Pattern](specification-pattern/discover-specification-pattern/Facilitation.md)
 - [Specification Pattern 2.0](specification-pattern/specification-2.0/Facilitation.md)
+
+## Functional Programming
+- [Pure Functions](functional-programming/1-pure-functions/Facilitation.md)
+- [Functors](functional-programming/2-functors/Facilitation.md)
