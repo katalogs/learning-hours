@@ -67,9 +67,7 @@ namespace Rental.Tests
         public void CalculateRentals()
         {
             var calculator = new RentalCalculator(SomeRentals());
-            calculator.Calculate();
-
-            calculator.Amount
+            calculator.Calculate()
                 .Should()
                 .BeApproximately(3037.24, 0.001);
         }
@@ -79,9 +77,8 @@ namespace Rental.Tests
         {
             var calculator = new RentalCalculator(SomeRentals());
 
-            calculator.Calculate();
+            calculator.Amount = calculator.Calculate();
             var statement = calculator.DisplayRentals();
-
             statement.Should()
                 .Be(
                     "09-10-2020 : Le Refuge des Loups (LA BRESSE) | 1089,9" + NewLine +
@@ -106,12 +103,15 @@ namespace Rental.Tests
         public void CalculateRentalsTwice()
         {
             var calculator = new RentalCalculator(SomeRentals());
-            calculator.Calculate();
-            calculator.Calculate();
+            double totalAmount_1 = 0;
+            double totalAmount_2 = 0;
 
-            calculator.Amount
+            totalAmount_1 = calculator.Calculate();
+            totalAmount_2 = calculator.Calculate();
+
+            totalAmount_1
                 .Should()
-                .BeApproximately(3037.24, 0.001);
+                .Be(totalAmount_2);
         }
     }
 }

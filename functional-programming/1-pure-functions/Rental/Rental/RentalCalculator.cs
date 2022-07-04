@@ -5,23 +5,25 @@ namespace Rental
     public class RentalCalculator
     {
         private readonly IEnumerable<Rental> _rentals;
-        public double Amount { get; private set; }
+        public double Amount { get; set; }
 
         public RentalCalculator(IEnumerable<Rental> rentals) => _rentals = rentals;
 
-        public void Calculate()
+        public double Calculate()
         {
             if (!_rentals.Any())
             {
                 throw new InvalidOperationException("No rentals on which perform calculation");
             }
 
-            Amount = 0;
+            double res = 0;
 
             foreach (var rental in _rentals)
             {
-                Amount += rental.Amount;
+                res += rental.Amount;
             }
+
+            return res;
         }
 
         private string FormatLine(Rental rental)
