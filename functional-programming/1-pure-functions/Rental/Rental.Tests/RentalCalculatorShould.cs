@@ -40,7 +40,7 @@ namespace Rental.Tests
                 .WithMessage("No rentals on which perform calculation");
         }
 
-        [Fact]
+        /*[Fact]
         public void CalculateRentalsAndFormatStatement()
         {
             var calculator = new RentalCalculator(SomeRentals());
@@ -61,43 +61,34 @@ namespace Rental.Tests
                     "24-10-2020 : Le moulin du bonheur (GLANDAGE) | 670.89" + NewLine +
                     "Total amount | 3037.2400000000002"
                 );
-        }
+        }*/
 
         [Fact]
         public void CalculateRentals()
         {
             var calculator = new RentalCalculator(SomeRentals());
-            double totalAmount = calculator.Calculate();
+            calculator.Calculate();
 
-            totalAmount
+            calculator.Amount
                 .Should()
                 .BeApproximately(3037.24, 0.001);
-
         }
 
         [Fact]
         public void FormatStatement()
         {
             var calculator = new RentalCalculator(SomeRentals());
-            var statement = calculator.Calculate();
 
-            calculator.IsCalculated
-                .Should()
-                .BeTrue();
-
-            calculator.Amount
-                .Should()
-                .BeApproximately(3037.24, 0.001);
+            calculator.Calculate();
+            var statement = calculator.DisplayRentals();
 
             statement.Should()
                 .Be(
-                    "09-10-2020 : Le Refuge des Loups (LA BRESSE) | 1089.9" + NewLine +
-                    "12-10-2020 : Au pied de la Tour (NOUILLORC) | 1276.45" + NewLine +
-                    "24-10-2020 : Le moulin du bonheur (GLANDAGE) | 670.89" + NewLine +
-                    "Total amount | 3037.2400000000002"
+                    "09-10-2020 : Le Refuge des Loups (LA BRESSE) | 1089,9" + NewLine +
+                    "12-10-2020 : Au pied de la Tour (NOUILLORC) | 1276,45" + NewLine +
+                    "24-10-2020 : Le moulin du bonheur (GLANDAGE) | 670,89" + NewLine +
+                    "Total amount | 3037,2400000000002"
                 );
         }
-
-
     }
 }

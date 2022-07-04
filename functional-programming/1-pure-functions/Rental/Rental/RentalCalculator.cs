@@ -10,14 +10,12 @@ namespace Rental
 
         public RentalCalculator(IEnumerable<Rental> rentals) => _rentals = rentals;
 
-        public string Calculate()
+        public void Calculate()
         {
             if (!_rentals.Any())
             {
                 throw new InvalidOperationException("No rentals on which perform calculation");
             }
-
-            var result = new StringBuilder();
 
             foreach (var rental in _rentals)
             {
@@ -25,17 +23,25 @@ namespace Rental
                 {
                     Amount += rental.Amount;
                 }
+            }
+            
+            IsCalculated = true;
+        }
 
-                result.Append(FormatLine(rental, rental.Amount));
+        private string FormatLine(Rental rental)
+            => $"{rental.Date.ToString("dd-MM-yyyy")} : {rental.Label} | {rental.Amount}{Environment.NewLine}";
+
+        public string DisplayRentals()
+        {
+            var result = new StringBuilder();
+
+            foreach (var rental in _rentals)
+            {
+                result.Append(FormatLine(rental));
             }
 
             result.Append($"Total amount | {Amount}");
-            IsCalculated = true;
-
             return result.ToString();
         }
-
-        private string FormatLine(Rental rental, double amount)
-            => $"{rental.Date.ToString("dd-MM-yyyy")} : {rental.Label} | {rental.Amount}{Environment.NewLine}";
     }
 }
