@@ -33,6 +33,11 @@ namespace Rental
 
         public string DisplayRentals()
         {
+            if (!_rentals.Any())
+            {
+                throw new InvalidOperationException("No rentals on which perform calculation");
+            }
+
             var result = new StringBuilder();
 
             foreach (var rental in _rentals)

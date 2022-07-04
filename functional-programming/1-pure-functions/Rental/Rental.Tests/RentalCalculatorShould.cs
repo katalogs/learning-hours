@@ -90,5 +90,16 @@ namespace Rental.Tests
                     "Total amount | 3037,2400000000002"
                 );
         }
+
+        [Fact]
+        public void Throw_An_Exception_When_Display_Without_Rentals()
+        {
+            var calculator = new RentalCalculator(NoRentals());
+
+            calculator.Invoking(_ => _.DisplayRentals())
+                .Should()
+                .Throw<InvalidOperationException>()
+                .WithMessage("No rentals on which perform calculation");
+        }
     }
 }
