@@ -9,21 +9,15 @@ namespace Rental
 
         public RentalCalculator(IEnumerable<Rental> rentals) => _rentals = rentals;
 
-        public double Calculate()
+        public static double Calculate(IEnumerable<Rental> rentals)
         {
-            if (!_rentals.Any())
+            var rentalsList = rentals.ToList();
+            if (!rentalsList.Any())
             {
                 throw new InvalidOperationException("No rentals on which perform calculation");
             }
 
-            double res = 0;
-
-            foreach (var rental in _rentals)
-            {
-                res += rental.Amount;
-            }
-
-            return res;
+            return rentalsList.Sum(rental => rental.Amount);
         }
 
         private string FormatLine(Rental rental)

@@ -33,41 +33,16 @@ namespace Rental.Tests
         [Fact]
         public void Throw_An_Exception_When_No_Rentals()
         {
-            var calculator = new RentalCalculator(NoRentals());
-            calculator.Invoking(_ => _.Calculate())
-                .Should()
+            Action calculateAction = () => RentalCalculator.Calculate(NoRentals());
+            calculateAction.Should()
                 .Throw<InvalidOperationException>()
                 .WithMessage("No rentals on which perform calculation");
         }
 
-        /*[Fact]
-        public void CalculateRentalsAndFormatStatement()
-        {
-            var calculator = new RentalCalculator(SomeRentals());
-            var statement = calculator.Calculate();
-
-            calculator.IsCalculated
-                .Should()
-                .BeTrue();
-
-            calculator.Amount
-                .Should()
-                .BeApproximately(3037.24, 0.001);
-
-            statement.Should()
-                .Be(
-                    "09-10-2020 : Le Refuge des Loups (LA BRESSE) | 1089.9" + NewLine +
-                    "12-10-2020 : Au pied de la Tour (NOUILLORC) | 1276.45" + NewLine +
-                    "24-10-2020 : Le moulin du bonheur (GLANDAGE) | 670.89" + NewLine +
-                    "Total amount | 3037.2400000000002"
-                );
-        }*/
-
         [Fact]
         public void CalculateRentals()
         {
-            var calculator = new RentalCalculator(SomeRentals());
-            calculator.Calculate()
+            RentalCalculator.Calculate(SomeRentals())
                 .Should()
                 .BeApproximately(3037.24, 0.001);
         }
@@ -77,7 +52,7 @@ namespace Rental.Tests
         {
             var calculator = new RentalCalculator(SomeRentals());
 
-            calculator.Amount = calculator.Calculate();
+            calculator.Amount = RentalCalculator.Calculate(SomeRentals());
             var statement = calculator.DisplayRentals();
             statement.Should()
                 .Be(
@@ -102,16 +77,12 @@ namespace Rental.Tests
         [Fact]
         public void CalculateRentalsTwice()
         {
-            var calculator = new RentalCalculator(SomeRentals());
-            double totalAmount_1 = 0;
-            double totalAmount_2 = 0;
+            var totalAmount1 = RentalCalculator.Calculate(SomeRentals());
+            var totalAmount2 = RentalCalculator.Calculate(SomeRentals());
 
-            totalAmount_1 = calculator.Calculate();
-            totalAmount_2 = calculator.Calculate();
-
-            totalAmount_1
+            totalAmount1
                 .Should()
-                .Be(totalAmount_2);
+                .Be(totalAmount2);
         }
     }
 }
