@@ -1,5 +1,6 @@
 using System;
 using FluentAssertions;
+using FluentAssertions.LanguageExt;
 using LanguageExt;
 using LanguageExt.Common;
 using Xunit;
@@ -9,24 +10,15 @@ namespace EitherOrTryByExample;
 
 public class EitherExercises
 {
-    [Fact]
-    public void GetTheResultOfDivide()
-    {
-        // Divide x = 9 by y = 2
-        var eitherResult = Divide(9, 2);
-        int result = 0;
-
-        result.Should().Be(4);
-        eitherResult.IsRight.Should().BeTrue();
-        eitherResult.IsLeft.Should().BeFalse();
-    }
+    private static Either<Error, int> Divide(int x, int y)
+        => y == 0 ? Left(Error.New("Dude, can't divide by 0")) : Right(x / y);
 
     [Fact]
     public void MapTheResultOfDivide()
     {
         // Divide x = 9 by y = 2 and add z to the result
-        int z = 3;
-        int result = 0;
+        var z = 3;
+        var result = 0;
 
         result.Should().Be(7);
     }
@@ -38,31 +30,24 @@ public class EitherExercises
         Func<Either<Error, int>> call = null;
         var result = call.Invoke();
 
-        result.IsLeft.Should().BeTrue();
-        //result.LeftUnsafe().Message.Should().Be("Dude, can't divide by 0");
+        result
+            .Should()
+            .BeLeft(error => error.Message
+                .Should()
+                .Be("Dude, can't divide by 0")
+            );
     }
 
     [Fact]
     public void DivideByZeroOrElse()
     {
         // Divide x by 0, on exception returns 0
-        int x = 1;
-        int result = -1;
+        var x = 1;
+        var result = -1;
 
         result.Should().Be(0);
     }
-
-    [Fact]
-    public void MapTheFailure()
-    {
-        // Divide x by 0, log the failure message to the console and get 0
-        int x = 1;
-
-        int result = -1;
-
-        result.Should().Be(0);
-    }
-
+    
     [Fact]
     public void ChainTheEither()
     {
@@ -78,7 +63,4 @@ public class EitherExercises
 
         result.Should().Be(1);
     }
-
-    private static Either<Error, int> Divide(int x, int y)
-        => y == 0 ? Left(Error.New("Dude, can't divide by 0")) : Right(x / y);
 }

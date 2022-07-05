@@ -229,3 +229,5 @@ public async Task TryOnAsync()
 private static TryAsync<int> DivideAsync(int x, int y)
     => Divide(x, y).ToAsync();
 ```
+
+# Either
