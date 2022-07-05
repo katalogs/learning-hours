@@ -231,3 +231,51 @@ private static TryAsync<int> DivideAsync(int x, int y)
 ```
 
 # Either
+
+## MapTheResultOfDivide
+
+Like with `Try` we can use a function `If<something>`. By convention `Left` is the failure case:
+
+```c#
+[Fact]
+public void MapTheResultOfDivide()
+{
+    // Divide x = 9 by y = 2 and add z to the result
+    var z = 3;
+    var result = Divide(9, 2)
+        .Map(a => a + z)
+        .IfLeft(0);
+
+    result.Should().Be(7);
+}
+```
+
+## ChainTheEither
+
+We use the same methods than on `Try` with `Either`:
+
+```c#
+[Fact]
+public void ChainTheEither()
+{
+    // Divide x by y
+    // Chain 2 other calls to divide with x = previous Divide result
+    // log the failure message to the console
+    // Log your success to the console
+    // Get the result or 0 if exception
+    var x = 27;
+    var y = 3;
+
+    var result = Divide(x, y)
+        .Bind(previous => Divide(previous, y))
+        .Bind(previous => Divide(previous, y))
+        .Do(success => _testOutputHelper.WriteLine($"Result is {success}"))
+        .IfLeft(left =>
+        {
+            _testOutputHelper.WriteLine(left.Message);
+            return 0;
+        });
+
+    result.Should().Be(1);
+}
+```

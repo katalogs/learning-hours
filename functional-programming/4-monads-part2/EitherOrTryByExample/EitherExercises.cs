@@ -1,17 +1,20 @@
-using System;
 using FluentAssertions;
-using FluentAssertions.LanguageExt;
 using LanguageExt;
 using LanguageExt.Common;
 using Xunit;
+using Xunit.Abstractions;
 using static LanguageExt.Prelude;
 
 namespace EitherOrTryByExample;
 
 public class EitherExercises
 {
+    private readonly ITestOutputHelper _testOutputHelper;
+
     private static Either<Error, int> Divide(int x, int y)
         => y == 0 ? Left(Error.New("Dude, can't divide by 0")) : Right(x / y);
+
+    public EitherExercises(ITestOutputHelper testOutputHelper) => _testOutputHelper = testOutputHelper;
 
     [Fact]
     public void MapTheResultOfDivide()
@@ -24,31 +27,6 @@ public class EitherExercises
     }
 
     [Fact]
-    public void DivideByZeroIsAlwaysAGoodIdea()
-    {
-        // Divide x by 0 and get the result
-        Func<Either<Error, int>> call = null;
-        var result = call.Invoke();
-
-        result
-            .Should()
-            .BeLeft(error => error.Message
-                .Should()
-                .Be("Dude, can't divide by 0")
-            );
-    }
-
-    [Fact]
-    public void DivideByZeroOrElse()
-    {
-        // Divide x by 0, on exception returns 0
-        var x = 1;
-        var result = -1;
-
-        result.Should().Be(0);
-    }
-    
-    [Fact]
     public void ChainTheEither()
     {
         // Divide x by y
@@ -56,10 +34,10 @@ public class EitherExercises
         // log the failure message to the console
         // Log your success to the console
         // Get the result or 0 if exception
-        int x = 27;
-        int y = 3;
+        var x = 27;
+        var y = 3;
 
-        int result = -1;
+        var result = -1;
 
         result.Should().Be(1);
     }
