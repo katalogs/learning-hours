@@ -4,6 +4,7 @@ using FluentAssertions;
 using FluentAssertions.LanguageExt;
 using LanguageExt;
 using Xunit;
+using static LanguageExt.Prelude;
 
 namespace EitherOrTryByExample
 {
@@ -123,17 +124,22 @@ namespace EitherOrTryByExample
         {
             // Create a Divide function that return an Option on Divide
             // If something fails -> return None
+            // Divide 9 by 3 again
             // Can be useful sometimes
-            var result = 0;
-            result.Should().Be(3);
+            var result = Option<int>.None;
+
+            result.Should()
+                .BeSome(_ => _.Should().Be(3));
         }
 
         [Fact]
         public async Task TryOnAsync()
         {
             // Create a Divide function that return a TryAsync
-            var result = 1;
-            result.Should().Be(0);
+            var result = TryAsync(() => Task.FromResult(0));
+
+            result.Should()
+                .BeSuccess(success => success.Should().Be(9));
         }
     }
 }
