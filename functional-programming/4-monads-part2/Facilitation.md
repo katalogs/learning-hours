@@ -81,4 +81,16 @@ new Account("Account2", 900).WithDraw(100); // Right(Account { Balance = 800 })
 
 Step-by-step solution available [here](step-by-step.md)
 
-## Conclusion
+## Conclusion - When?
+
+Think about when to use it.
+List some usages.
+
+Usually we use `Try` only when we run unpredictable code like:
+
+- calling an API
+- storing data in a database
+- sending an email
+- ...
+
+We prefer using `Either` or a `Result` for every error we have under management in our business process
