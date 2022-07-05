@@ -6,7 +6,7 @@ using LanguageExt;
 using Xunit;
 using static LanguageExt.Prelude;
 
-namespace OptionAndTryByExample
+namespace OptionByExample
 {
     public class OptionExercises
     {
