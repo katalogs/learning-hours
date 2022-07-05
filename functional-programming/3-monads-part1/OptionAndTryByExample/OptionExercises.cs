@@ -19,17 +19,6 @@ namespace OptionAndTryByExample
             );
 
         [Fact]
-        public void FilterAListOfPerson()
-        {
-            // Filter the persons list with only defined persons
-            var definedPersons = Seq<Person>();
-
-            definedPersons
-                .Should()
-                .HaveCount(2);
-        }
-
-        [Fact]
         public void WorkingWithNull()
         {
             // Instantiate a None Option of string
@@ -90,6 +79,17 @@ namespace OptionAndTryByExample
             resultBuilder
                 .Should()
                 .Be("250125");
+        }
+
+        [Fact]
+        public void FilterAListOfPerson()
+        {
+            // Filter the persons list with only defined persons
+            var definedPersons = Seq<Person>();
+
+            definedPersons
+                .Should()
+                .HaveCount(2);
         }
 
         private Option<double> Half(double x)
