@@ -38,6 +38,17 @@ namespace OptionAndTryByExample
         }
 
         [Fact]
+        public void FilterAListOfPerson()
+        {
+            // Filter the persons list with only defined persons
+            var definedPersons = Seq<Person>();
+
+            definedPersons
+                .Should()
+                .HaveCount(2);
+        }
+
+        [Fact]
         public void FindKaradoc()
         {
             // Find Karadoc in the people List or returns Perceval
@@ -77,19 +88,9 @@ namespace OptionAndTryByExample
                 .BeNone();
 
             resultBuilder
+                .ToString()
                 .Should()
                 .Be("250125");
-        }
-
-        [Fact]
-        public void FilterAListOfPerson()
-        {
-            // Filter the persons list with only defined persons
-            var definedPersons = Seq<Person>();
-
-            definedPersons
-                .Should()
-                .HaveCount(2);
         }
 
         private Option<double> Half(double x)
