@@ -147,30 +147,9 @@ var noneValue = none.IfNone(42); // 42
 
 > Do the OptionExercises
 
-### Try
-
-Try is a monadic container which represents a computation that `may either throw an exception or successfully completes`
-.
-
-```c#
-var random = new Random();
-var robots = new[] {"Tars", "Kipp", "Case"};
-
-Try<string> RandomRobot() =>
-    () => random.Next(10) > 5
-        ? throw new InvalidProgramException("Plenty of slaves for my robot colony")
-        : robots[random.Next(3)];
-
-RandomRobot().Map(_ => _.ToUpperInvariant()); // Failure -> InvalidProgramException : "Plenty of slaves for my robot colony"
-RandomRobot().Map(_ => _.ToUpperInvariant()); // "KIPP"
-RandomRobot().Map(_ => _.ToUpperInvariant()); // "CASE"
-RandomRobot().Map(_ => _.ToUpperInvariant()); // Failure -> InvalidProgramException : "Plenty of slaves for my robot colony"
-```
-
-> Do the TryExercises
-
 Step-by-step solution available [here](step-by-step.md)
 
-## Conclusion
+## Conclusion - When?
 
-Think about what we did today. If you had to explain the main idea of the topic to someone else, what would you say?
+Think about when to use it.
+List some usages.
