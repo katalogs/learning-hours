@@ -16,7 +16,7 @@ namespace EitherOrTryByExample
         public void GetTheResultOfDivide()
         {
             // Divide x = 9 by y = 2
-            var tryResult = Divide(9, 2);
+            Try<int> tryResult = () => 0;
 
             tryResult
                 .Should()
