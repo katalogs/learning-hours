@@ -107,10 +107,10 @@ Of course, there are automated tools
 ![Generate mutants](img/generate-mutants.png)
 
 - Step 2: Kill them all
-- Check that all your tests are green on the non-mutated business code
-- Take the mutants one by one 
-  - Place them in front of the wall of the shot 
-  - Fire a salvo of unit tests
+  - Check that all your tests are green on the non-mutated business code
+  - Take the mutants one by one 
+    - Place them in front of the wall of the shot 
+    - Fire a salvo of unit tests
 - Step 3: Make the assessment
   - Who survived? Who was killed?
   - If your tests fail then the mutant is killed
