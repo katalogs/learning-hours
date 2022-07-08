@@ -3,15 +3,15 @@
     public class AccountService
     {
         private readonly IBusinessLogger _businessLogger;
-        private readonly TwitterService _twitterService;
-        private readonly UserService _userService;
+        private readonly IUserRepository _userRepository;
+        private readonly ITwitterService _twitterService;
 
         public AccountService(
-            UserService userService,
-            TwitterService twitterService,
+            IUserRepository userRepository,
+            ITwitterService twitterService,
             IBusinessLogger businessLogger)
         {
-            _userService = userService;
+            _userRepository = userRepository;
             _twitterService = twitterService;
             _businessLogger = businessLogger;
         }
@@ -20,7 +20,7 @@
         {
             try
             {
-                var user = _userService.FindById(id);
+                var user = _userRepository.FindById(id);
 
                 if (user == null) return null;
 
@@ -36,7 +36,7 @@
 
                 if (tweetUrl == null) return null;
 
-                _userService.UpdateTwitterAccountId(id, accountId);
+                UpdateTwitterAccountId(id, accountId);
                 _businessLogger.LogSuccessRegister(id);
 
                 return tweetUrl;
@@ -47,6 +47,11 @@
 
                 return null;
             }
+        }
+
+        private void UpdateTwitterAccountId(Guid id, string twitterAccountId)
+        {
+            _businessLogger.Log("Twitter account updated");
         }
     }
 }
