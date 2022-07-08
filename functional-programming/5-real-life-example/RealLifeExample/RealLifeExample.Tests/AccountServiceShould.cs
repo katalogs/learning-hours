@@ -1,6 +1,7 @@
 ﻿using System;
 using FluentAssertions;
 using Moq;
+using RealLifeExample.Exceptions;
 using Xunit;
 using static Moq.Times;
 using static RealLifeExample.Tests.TwitterServiceMockBuilder;
@@ -26,21 +27,22 @@ namespace RealLifeExample.Tests
                 _businessLoggerMock.Object
             );
 
-        public class ReturnNull : AccountServiceShould
+        public class Fail : AccountServiceShould
         {
             [Fact]
             public void When_User_Is_Unknown() =>
                 _accountService
-                    .Register(UnknownUserId)
+                    .Invoking(_ => _.Register(UnknownUserId))
                     .Should()
-                    .BeNull();
+                    .Throw<UnknownUserException>();
 
             [Fact]
             public void When_Twitter_Registration_Failed() =>
                 _accountService
-                    .Register(ExistingUser.Id)
+                    .Invoking(_ => _.Register(ExistingUser.Id))
                     .Should()
-                    .BeNull();
+                    .Throw<TwitterRegistrationFailedException>()
+                    .WithMessage("Not able to register rick@green.com on twitter");
 
             [Fact]
             public void When_Twitter_Authentication_Failed()
@@ -49,26 +51,28 @@ namespace RealLifeExample.Tests
                     .RegisterForUser(ExistingUser);
 
                 _accountService
-                    .Register(ExistingUser.Id)
+                    .Invoking(_ => _.Register(ExistingUser.Id))
                     .Should()
-                    .BeNull();
+                    .Throw<TwitterAuthenticationFailedException>()
+                    .WithMessage("Not able to authenticate rick@green.com on twitter");
             }
 
             [Fact]
-            public void When_Twitter_Tweet_Failed()
+            public void When_Tweet_Failed()
             {
                 _twitterServiceMockBuilder
                     .RegisterForUser(ExistingUser)
                     .AuthenticationForUser(ExistingUser, TwitterToken);
 
                 _accountService
-                    .Register(ExistingUser.Id)
+                    .Invoking(_ => _.Register(ExistingUser.Id))
                     .Should()
-                    .BeNull();
+                    .Throw<TweetFailedException>()
+                    .WithMessage("Not able to tweet with token A Twitter Token");
             }
 
             [Fact]
-            public void When_Logging_Failed()
+            public void When_An_Unknown_Exception_Occured()
             {
                 _twitterServiceMockBuilder
                     .RegisterForUser(ExistingUser)
@@ -80,9 +84,9 @@ namespace RealLifeExample.Tests
                     .Throws<InvalidOperationException>();
 
                 _accountService
-                    .Register(ExistingUser.Id)
+                    .Invoking(_ => _.Register(ExistingUser.Id))
                     .Should()
-                    .BeNull();
+                    .Throw<InvalidOperationException>();
 
                 _businessLoggerMock
                     .Verify(_ => _.LogFailureRegister(ExistingUser.Id, It.IsAny<Exception>()), Once);

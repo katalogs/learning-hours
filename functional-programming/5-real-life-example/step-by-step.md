@@ -1,17 +1,11 @@
-## Step by step RealLife refactoring
-
-Open :
-
-* `RealLifeExample`
-* `AccountService` in the `language_ext.kata.Account`
-
+# Real Life Example
 ### Understand what is implemented
 
 By checking the code we can understand this logic :
 
 ```text
 1. Given an id
-2. Retrieve a user details: email, first name and password (not really secure ;-)
+2. Retrieve a user details: email, first name and password (not really secured ;-)
 3. Register an account on Twitter
 4. Authenticate on Twitter
 5. Tweet *Hello I am ...*

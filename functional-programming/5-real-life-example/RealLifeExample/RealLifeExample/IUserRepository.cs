@@ -1,6 +1,7 @@
-namespace RealLifeExample;
-
-public interface IUserRepository
+namespace RealLifeExample
 {
-    User FindById(Guid id);
+    public interface IUserRepository
+    {
+        User FindById(Guid id);
+    }
 }

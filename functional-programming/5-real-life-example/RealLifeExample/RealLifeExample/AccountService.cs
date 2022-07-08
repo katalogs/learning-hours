@@ -1,4 +1,6 @@
-﻿namespace RealLifeExample
+﻿using RealLifeExample.Exceptions;
+
+namespace RealLifeExample
 {
     public class AccountService
     {
@@ -22,19 +24,31 @@
             {
                 var user = _userRepository.FindById(id);
 
-                if (user == null) return null;
+                if (user == null)
+                {
+                    throw new UnknownUserException(id);
+                }
 
                 var accountId = _twitterService.Register(user.Email, user.Name);
 
-                if (accountId == null) return null;
+                if (accountId == null)
+                {
+                    throw new TwitterRegistrationFailedException(user);
+                }
 
                 var twitterToken = _twitterService.Authenticate(user.Email, user.Password);
 
-                if (twitterToken == null) return null;
+                if (twitterToken == null)
+                {
+                    throw new TwitterAuthenticationFailedException(user);
+                }
 
                 var tweetUrl = _twitterService.Tweet(twitterToken, "Hello I am " + user.Name);
 
-                if (tweetUrl == null) return null;
+                if (tweetUrl == null)
+                {
+                    throw new TweetFailedException(twitterToken);
+                }
 
                 UpdateTwitterAccountId(id, accountId);
                 _businessLogger.LogSuccessRegister(id);
@@ -44,8 +58,7 @@
             catch (Exception ex)
             {
                 _businessLogger.LogFailureRegister(id, ex);
-
-                return null;
+                throw;
             }
         }
 
