@@ -3,6 +3,7 @@ using FluentAssertions;
 using Moq;
 using Xunit;
 using static Moq.Times;
+using static RealLifeExample.Tests.TwitterServiceMockBuilder;
 
 namespace RealLifeExample.Tests
 {
@@ -15,13 +16,13 @@ namespace RealLifeExample.Tests
         private const string TweetUrl = "TweetUrl";
 
         private readonly AccountService _accountService;
-        private readonly Mock<ITwitterService> _twitterServiceMock = new();
+        private readonly TwitterServiceMockBuilder _twitterServiceMockBuilder = NewTwitterService();
         private readonly Mock<IBusinessLogger> _businessLoggerMock = new();
 
         public AccountServiceShould()
             => _accountService = new AccountService(
                 new UserRepositoryFake(),
-                _twitterServiceMock.Object,
+                _twitterServiceMockBuilder.Object,
                 _businessLoggerMock.Object
             );
 
@@ -44,7 +45,8 @@ namespace RealLifeExample.Tests
             [Fact]
             public void When_Twitter_Authentication_Failed()
             {
-                SetupRegisterForUser(ExistingUser);
+                _twitterServiceMockBuilder
+                    .RegisterForUser(ExistingUser);
 
                 _accountService
                     .Register(ExistingUser.Id)
@@ -55,8 +57,9 @@ namespace RealLifeExample.Tests
             [Fact]
             public void When_Twitter_Tweet_Failed()
             {
-                SetupRegisterForUser(ExistingUser);
-                SetupAuthenticationForUser(ExistingUser);
+                _twitterServiceMockBuilder
+                    .RegisterForUser(ExistingUser)
+                    .AuthenticationForUser(ExistingUser, TwitterToken);
 
                 _accountService
                     .Register(ExistingUser.Id)
@@ -67,9 +70,10 @@ namespace RealLifeExample.Tests
             [Fact]
             public void When_Logging_Failed()
             {
-                SetupRegisterForUser(ExistingUser);
-                SetupAuthenticationForUser(ExistingUser);
-                SetupTweet();
+                _twitterServiceMockBuilder
+                    .RegisterForUser(ExistingUser)
+                    .AuthenticationForUser(ExistingUser, TwitterToken)
+                    .Tweet(TwitterToken, TweetUrl);
 
                 _businessLoggerMock
                     .Setup(_ => _.LogSuccessRegister(ExistingUser.Id))
@@ -88,9 +92,10 @@ namespace RealLifeExample.Tests
         [Fact]
         public void Return_A_New_Tweet_Url()
         {
-            SetupRegisterForUser(ExistingUser);
-            SetupAuthenticationForUser(ExistingUser);
-            SetupTweet();
+            _twitterServiceMockBuilder
+                .RegisterForUser(ExistingUser)
+                .AuthenticationForUser(ExistingUser, TwitterToken)
+                .Tweet(TwitterToken, TweetUrl);
 
             _accountService
                 .Register(ExistingUser.Id)
@@ -103,20 +108,5 @@ namespace RealLifeExample.Tests
             _businessLoggerMock
                 .Verify(_ => _.LogSuccessRegister(ExistingUser.Id));
         }
-
-        private void SetupRegisterForUser(User user) =>
-            _twitterServiceMock
-                .Setup(t => t.Register(user.Email, user.Name))
-                .Returns("AccountId");
-
-        private void SetupAuthenticationForUser(User user) =>
-            _twitterServiceMock
-                .Setup(t => t.Authenticate(user.Email, user.Password))
-                .Returns(TwitterToken);
-
-        private void SetupTweet() =>
-            _twitterServiceMock
-                .Setup(t => t.Tweet(TwitterToken, It.IsAny<string>()))
-                .Returns(TweetUrl);
     }
 }
