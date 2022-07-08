@@ -2,8 +2,8 @@
 {
     public interface ITwitterService
     {
-        string Register(string email, string name);
-        string Authenticate(string email, string password);
-        string Tweet(string token, string message);
+        Task<string> RegisterAsync(string email, string name);
+        Task<string> AuthenticateAsync(string email, string password);
+        Task<string> TweetAsync(string token, string message);
     }
 }

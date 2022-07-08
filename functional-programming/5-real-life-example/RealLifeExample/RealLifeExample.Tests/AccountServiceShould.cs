@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading.Tasks;
 using FluentAssertions;
 using Moq;
 using RealLifeExample.Exceptions;
@@ -32,16 +33,16 @@ namespace RealLifeExample.Tests
             [Fact]
             public void When_User_Is_Unknown() =>
                 _accountService
-                    .Invoking(_ => _.Register(UnknownUserId))
+                    .Invoking(_ => _.RegisterAsync(UnknownUserId))
                     .Should()
-                    .Throw<UnknownUserException>();
+                    .ThrowAsync<UnknownUserException>();
 
             [Fact]
             public void When_Twitter_Registration_Failed() =>
                 _accountService
-                    .Invoking(_ => _.Register(ExistingUser.Id))
+                    .Invoking(_ => _.RegisterAsync(ExistingUser.Id))
                     .Should()
-                    .Throw<TwitterRegistrationFailedException>()
+                    .ThrowAsync<TwitterRegistrationFailedException>()
                     .WithMessage("Not able to register rick@green.com on twitter");
 
             [Fact]
@@ -51,9 +52,9 @@ namespace RealLifeExample.Tests
                     .RegisterForUser(ExistingUser);
 
                 _accountService
-                    .Invoking(_ => _.Register(ExistingUser.Id))
+                    .Invoking(_ => _.RegisterAsync(ExistingUser.Id))
                     .Should()
-                    .Throw<TwitterAuthenticationFailedException>()
+                    .ThrowAsync<TwitterAuthenticationFailedException>()
                     .WithMessage("Not able to authenticate rick@green.com on twitter");
             }
 
@@ -65,9 +66,9 @@ namespace RealLifeExample.Tests
                     .AuthenticationForUser(ExistingUser, TwitterToken);
 
                 _accountService
-                    .Invoking(_ => _.Register(ExistingUser.Id))
+                    .Invoking(_ => _.RegisterAsync(ExistingUser.Id))
                     .Should()
-                    .Throw<TweetFailedException>()
+                    .ThrowAsync<TweetFailedException>()
                     .WithMessage("Not able to tweet with token A Twitter Token");
             }
 
@@ -80,37 +81,36 @@ namespace RealLifeExample.Tests
                     .Tweet(TwitterToken, TweetUrl);
 
                 _businessLoggerMock
-                    .Setup(_ => _.LogSuccessRegister(ExistingUser.Id))
+                    .Setup(_ => _.LogSuccessAsync(ExistingUser.Id))
                     .Throws<InvalidOperationException>();
 
                 _accountService
-                    .Invoking(_ => _.Register(ExistingUser.Id))
+                    .Invoking(_ => _.RegisterAsync(ExistingUser.Id))
                     .Should()
-                    .Throw<InvalidOperationException>();
+                    .ThrowAsync<InvalidOperationException>();
 
                 _businessLoggerMock
-                    .Verify(_ => _.LogFailureRegister(ExistingUser.Id, It.IsAny<Exception>()), Once);
+                    .Verify(_ => _.LogFailureAsync(ExistingUser.Id, It.IsAny<Exception>()), Once);
             }
         }
 
         [Fact]
-        public void Return_A_New_Tweet_Url()
+        public async Task Return_A_New_Tweet_Url()
         {
             _twitterServiceMockBuilder
                 .RegisterForUser(ExistingUser)
                 .AuthenticationForUser(ExistingUser, TwitterToken)
                 .Tweet(TwitterToken, TweetUrl);
 
-            _accountService
-                .Register(ExistingUser.Id)
+            (await _accountService.RegisterAsync(ExistingUser.Id))
                 .Should()
                 .Be(TweetUrl);
 
             _businessLoggerMock
-                .Verify(_ => _.Log("Twitter account updated"), Once);
+                .Verify(_ => _.LogAsync("Twitter account updated"), Once);
 
             _businessLoggerMock
-                .Verify(_ => _.LogSuccessRegister(ExistingUser.Id));
+                .Verify(_ => _.LogSuccessAsync(ExistingUser.Id));
         }
     }
 }

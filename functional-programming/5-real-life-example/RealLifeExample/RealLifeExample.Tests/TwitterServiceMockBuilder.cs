@@ -1,5 +1,6 @@
 using System;
 using Moq;
+using static System.Threading.Tasks.Task;
 
 namespace RealLifeExample.Tests
 {
@@ -20,20 +21,20 @@ namespace RealLifeExample.Tests
 
         public TwitterServiceMockBuilder RegisterForUser(User user) =>
             SetupTwitterMock(
-                _ => _.Setup(t => t.Register(user.Email, user.Name))
-                    .Returns("AccountId")
+                _ => _.Setup(t => t.RegisterAsync(user.Email, user.Name))
+                    .Returns(FromResult("AccountId"))
             );
 
         public TwitterServiceMockBuilder AuthenticationForUser(User user, string twitterToken) =>
             SetupTwitterMock(
-                _ => _.Setup(t => t.Authenticate(user.Email, user.Password))
-                    .Returns(twitterToken)
+                _ => _.Setup(t => t.AuthenticateAsync(user.Email, user.Password))
+                    .Returns(FromResult(twitterToken))
             );
 
         public TwitterServiceMockBuilder Tweet(string twitterToken, string returnedTweetUrl) =>
             SetupTwitterMock(
-                _ => _.Setup(t => t.Tweet(twitterToken, It.IsAny<string>()))
-                    .Returns(returnedTweetUrl)
+                _ => _.Setup(t => t.TweetAsync(twitterToken, It.IsAny<string>()))
+                    .Returns(FromResult(returnedTweetUrl))
             );
     }
 }

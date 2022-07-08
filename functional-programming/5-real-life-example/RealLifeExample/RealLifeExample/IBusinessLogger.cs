@@ -2,8 +2,8 @@
 {
     public interface IBusinessLogger
     {
-        void LogSuccessRegister(Guid id);
-        void LogFailureRegister(Guid id, Exception exception);
-        void Log(string message);
+        Task LogSuccessAsync(Guid id);
+        Task LogFailureAsync(Guid id, Exception exception);
+        Task LogAsync(string message);
     }
 }

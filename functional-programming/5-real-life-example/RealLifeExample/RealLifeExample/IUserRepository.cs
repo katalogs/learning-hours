@@ -2,6 +2,6 @@ namespace RealLifeExample
 {
     public interface IUserRepository
     {
-        User FindById(Guid id);
+        Task<User> FindByIdAsync(Guid id);
     }
 }
