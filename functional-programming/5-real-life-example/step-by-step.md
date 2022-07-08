@@ -1,4 +1,5 @@
 # Real Life Example
+
 ### Understand what is implemented
 
 By checking the code we can understand this logic :
@@ -15,20 +16,20 @@ By checking the code we can understand this logic :
 9. In case of error anywhere log something also
 ```
 
-This code is easy to follow but has a lot of repetitions (check null values -> return null)
+This code is easy to follow but has a lot of repetitions (check null values -> throw Exception)
 
 ### Define the pipeline
 
 ```C#
 // Given an id 
-_userService.FindById(id) // Retrieve a user details
-  | _twitterService.Register(user.Email, user.Name) // Register an account on Twitter
-  | _twitterService.Authenticate(user.Email, user.Password) // Authenticate on Twitter
-  | _twitterService.Tweet(twitterToken, "Hello I am " + user.Name) // Tweet *Hello I am ...*
-  | _userService.UpdateTwitterAccountId(id, accountId) // Update the user details with the Twitter account id
-  | _businessLogger.LogSuccessRegister(id) // Log something in case of success
-  | _businessLogger.LogFailureRegister(id, ex) // In case of error anywhere log it
-  | tweetUrl // Return the tweet URL or null in case of failure / Exception
+await _userService.FindByIdAsync(id) // Retrieve a user details
+  > await _twitterService.RegisterAsync(user.Email, user.Name) // Register an account on Twitter
+  > await _twitterService.AuthenticateAsync(user.Email, user.Password) // Authenticate on Twitter
+  > await _twitterService.TweetAsync(twitterToken, "Hello I am " + user.Name) // Tweet *Hello I am ...*
+  > await UpdateTwitterAccountIdAsync(id, accountId) // Update the user details with the Twitter account id
+  > await _businessLogger.LogSuccessAsync(id) // Log something in case of success
+  > await _businessLogger.LogFailureAsync(id, ex) // In case of error anywhere log it
+  > tweetUrl // Return the tweet URL or throw an exception
 ```
 
 ## How to ?
@@ -45,44 +46,55 @@ This is a step by step guide with a "*naive*" approach :
 
 ### 1) Extract "Retrieve a user details" method
 
-Extract `_userService.FindById(id);` into a function returning a Try monad
+Extract `_userRepository.FindByIdAsync(id)` into a function returning a `TryAsync`
 
 ```C#
-public string Register(Guid id)
+public async Task<string> RegisterAsync(Guid id)
 {
     try
     {
-        var user = RetrieveUserDetails(id).IfFailThrow();
+        var user = await RetrieveUserDetails(id).IfFailThrow();
 
-        if (user == null) return null;
+        if (user == null)
+        {
+            throw new UnknownUserException(id);
+        }
 
-        var accountId = _twitterService.Register(user.Email, user.Name);
+        var accountId = await _twitterService.RegisterAsync(user.Email, user.Name);
 
-        if (accountId == null) return null;
+        if (accountId == null)
+        {
+            throw new TwitterRegistrationFailedException(user);
+        }
 
-        var twitterToken = _twitterService.Authenticate(user.Email, user.Password);
+        var twitterToken = await _twitterService.AuthenticateAsync(user.Email, user.Password);
 
-        if (twitterToken == null) return null;
+        if (twitterToken == null)
+        {
+            throw new TwitterAuthenticationFailedException(user);
+        }
 
-        var tweetUrl = _twitterService.Tweet(twitterToken, "Hello I am " + user.Name);
+        var tweetUrl = await _twitterService.TweetAsync(twitterToken, "Hello I am " + user.Name);
 
-        if (tweetUrl == null) return null;
+        if (tweetUrl == null)
+        {
+            throw new TweetFailedException(twitterToken);
+        }
 
-        _userService.UpdateTwitterAccountId(id, accountId);
-        _businessLogger.LogSuccessRegister(id);
+        await UpdateTwitterAccountIdAsync(id, accountId);
+        await _businessLogger.LogSuccessAsync(id);
 
-        return tweetUrl;
+        return await Task.FromResult(tweetUrl);
     }
     catch (Exception ex)
     {
-        _businessLogger.LogFailureRegister(id, ex);
-
-        return null;
+        await _businessLogger.LogFailureAsync(id, ex);
+        throw;
     }
 }
 
-private Try<User> RetrieveUserDetails(Guid id)
-    => () => _userService.FindById(id);
+private TryAsync<User> RetrieveUserDetails(Guid id)
+    => TryAsync(() => _userRepository.FindByIdAsync(id));
 ```
 
 ### 2) Extract "Register an account on Twitter" method
@@ -131,94 +143,124 @@ private Try<string> RegisterAccountOnTwitter(User user)
 ### 3) Extract "Authenticate on Twitter" method
 
 ```C#
-public string Register(Guid id)
+public async Task<string> RegisterAsync(Guid id)
 {
     try
     {
-        var user = RetrieveUserDetails(id).IfFailThrow();
+        var user = await RetrieveUserDetails(id).IfFailThrow();
 
-        if (user == null) return null;
+        if (user == null)
+        {
+            throw new UnknownUserException(id);
+        }
 
-        var accountId = RegisterAccountOnTwitter(user).IfFailThrow();
+        var accountId = await RegisterAccountOnTwitter(user).IfFailThrow();
 
-        if (accountId == null) return null;
+        if (accountId == null)
+        {
+            throw new TwitterRegistrationFailedException(user);
+        }
 
-        var twitterToken = AuthenticateOnTwitter(user).IfFailThrow();
+        var twitterToken = await AuthenticateOnTwitter(user).IfFailThrow();
 
-        if (twitterToken == null) return null;
+        if (twitterToken == null)
+        {
+            throw new TwitterAuthenticationFailedException(user);
+        }
 
-        var tweetUrl = _twitterService.Tweet(twitterToken, "Hello I am " + user.Name);
+        var tweetUrl = await _twitterService.TweetAsync(twitterToken, "Hello I am " + user.Name);
 
-        if (tweetUrl == null) return null;
+        if (tweetUrl == null)
+        {
+            throw new TweetFailedException(twitterToken);
+        }
 
-        _userService.UpdateTwitterAccountId(id, accountId);
-        _businessLogger.LogSuccessRegister(id);
+        await UpdateTwitterAccountIdAsync(id, accountId);
+        await _businessLogger.LogSuccessAsync(id);
 
-        return tweetUrl;
+        return await Task.FromResult(tweetUrl);
     }
     catch (Exception ex)
     {
-        _businessLogger.LogFailureRegister(id, ex);
-
-        return null;
+        await _businessLogger.LogFailureAsync(id, ex);
+        throw;
     }
 }
 
-private Try<User> RetrieveUserDetails(Guid id)
-    => () => _userService.FindById(id);
 
-private Try<string> RegisterAccountOnTwitter(User user)
-    => () => _twitterService.Register(user.Email, user.Name);
+private TryAsync<User> RetrieveUserDetails(Guid id)
+    => TryAsync(() => _userRepository.FindByIdAsync(id));
 
-private Try<string> AuthenticateOnTwitter(User user)
-    => () => _twitterService.Authenticate(user.Email, user.Password);
+private TryAsync<string> RegisterAccountOnTwitter(User user)
+    => TryAsync(() => _twitterService.RegisterAsync(user.Email, user.Name));
+
+private TryAsync<string> AuthenticateOnTwitter(User user)
+    => TryAsync(() => _twitterService.AuthenticateAsync(user.Email, user.Password));
 ```
 
 ### 4) A few methods later
 
 ```C#
-public string Register(Guid id)
+public async Task<string> RegisterAsync(Guid id)
 {
     try
     {
-        var user = RetrieveUserDetails(id).IfFailThrow();
-        if (user == null) return null;
+        var user = await RetrieveUserDetails(id).IfFailThrow();
 
-        var accountId = RegisterAccountOnTwitter(user).IfFailThrow();
-        if (accountId == null) return null;
+        if (user == null)
+        {
+            throw new UnknownUserException(id);
+        }
 
-        var twitterToken = AuthenticateOnTwitter(user).IfFailThrow();
-        if (twitterToken == null) return null;
+        var accountId = await RegisterAccountOnTwitter(user).IfFailThrow();
 
-        var tweetUrl = Tweet(twitterToken, user).IfFailThrow();
-        if (tweetUrl == null) return null;
+        if (accountId == null)
+        {
+            throw new TwitterRegistrationFailedException(user);
+        }
 
-        UpdateTwitterAccount(id, accountId);
-        _businessLogger.LogSuccessRegister(id);
+        var twitterToken = await AuthenticateOnTwitter(user).IfFailThrow();
 
-        return tweetUrl;
+        if (twitterToken == null)
+        {
+            throw new TwitterAuthenticationFailedException(user);
+        }
+
+        var tweetUrl = await Tweet(twitterToken, user).IfFailThrow();
+
+        if (tweetUrl == null)
+        {
+            throw new TweetFailedException(twitterToken);
+        }
+
+        await UpdateTwitterAccountIdAsync(id, accountId);
+        await _businessLogger.LogSuccessAsync(id);
+
+        return await Task.FromResult(tweetUrl);
     }
     catch (Exception ex)
     {
-        _businessLogger.LogFailureRegister(id, ex);
-        return null;
+        await _businessLogger.LogFailureAsync(id, ex);
+        throw;
     }
 }
 
-private Try<User> RetrieveUserDetails(Guid id)
-    => () => _userService.FindById(id);
 
-private Try<string> RegisterAccountOnTwitter(User user)
-    => () => _twitterService.Register(user.Email, user.Name);
+private TryAsync<User> RetrieveUserDetails(Guid id)
+    => TryAsync(() => _userRepository.FindByIdAsync(id));
 
-private Try<string> AuthenticateOnTwitter(User user)
-    => () => _twitterService.Authenticate(user.Email, user.Password);
+private TryAsync<string> RegisterAccountOnTwitter(User user)
+    => TryAsync(() => _twitterService.RegisterAsync(user.Email, user.Name));
 
-private Try<string> Tweet(string twitterToken, User user)
-    => () => _twitterService.Tweet(twitterToken, "Hello I am " + user.Name);
+private TryAsync<string> AuthenticateOnTwitter(User user)
+    => TryAsync(() => _twitterService.AuthenticateAsync(user.Email, user.Password));
 
-private void UpdateTwitterAccount(Guid id, string accountId)
-    => _userService.UpdateTwitterAccountId(id, accountId);
+private TryAsync<string> Tweet(string twitterToken, User user)
+    => TryAsync(() => _twitterService.TweetAsync(twitterToken, "Hello I am " + user.Name));
+
+private async Task UpdateTwitterAccountIdAsync(Guid id, string twitterAccountId) =>
+    await _businessLogger.LogAsync("Twitter account updated");
+}
 ```
 
 ### 5) Pipeline ?
@@ -230,7 +272,7 @@ Indeed, so our next step is to put all together : you may have already seen the 
 > Take a look at the method signatures : we are not working on the same kind of data
 
 If we chain our calls we will have something like this :  
-![1](../img/1.png)
+![Chaining Failure](img/chain-failure.png)
 
 #### What is the solution ?
 
@@ -266,27 +308,32 @@ public static class RegistrationExtensions
 ```
 
 * Then chain the calls by changing method signatures :
+    * We want methods with this signature: `RegistrationContext` -> `TryAsync<RegistrationContext>`
 
 ```C#
-private Try<RegistrationContext> RetrieveUserDetails(Guid userId) =>
-    Try(() => _userService.FindById(userId))
+private TryAsync<RegistrationContext> RetrieveUserDetails(Guid id)
+    => TryAsync(() => _userRepository.FindByIdAsync(id))
         .Map(user => user.ToContext());
 
-// example of with usage on records
-private Try<RegistrationContext> RegisterOnTwitter(RegistrationContext context) =>
-    Try(() => _twitterService.Register(context.Email, context.Name))
+// Example of with usage from record
+private TryAsync<RegistrationContext> RegisterAccountOnTwitter(RegistrationContext context)
+    => TryAsync(() => _twitterService.RegisterAsync(context.Email, context.Name))
         .Map(twitterAccountId => context with {AccountId = twitterAccountId});
 ```
 
 * Repeat it for each method
+    * Use your IDE to assist you
+
+![Use your IDE](img/use-ide.png)
+
 * At the end you should have a pipeline looking like
 
 ```C#
-return RetrieveUserDetails(id)
-        .Bind(RegisterOnTwitter)
+return await RetrieveUserDetails(id)
+        .Bind(RegisterAccountOnTwitter)
         .Bind(AuthenticateOnTwitter)
         .Bind(Tweet)
-        .Bind(UpdateUser);
+        .Bind(UpdateTwitterAccountId)
 ```
 
 * Add the logging part to it
