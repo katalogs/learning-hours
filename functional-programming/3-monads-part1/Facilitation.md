@@ -40,7 +40,10 @@ class CreatePersonUseCase
 
 ![Liar](img/liar-liar.jpg)
 
-### Correction
+<details>
+  <summary markdown='span'>
+  Correction
+  </summary>
 
 Those snippets code contain `lies`, if you take a look at the public API level:
 
@@ -56,6 +59,8 @@ To fix this issue we have a couple of options:
 
 - Constrain the inputs (with only valid inputs)
 - Extend the output to represent the failure possibility
+
+</details>
 
 ## Concepts
 
@@ -94,7 +99,7 @@ public static void Process() =>
 
 ### Language-Ext monads
 
-[![Monads in language-ext](img/monads-lang-ext.png)](https://github.com/louthy/language-ext#optional-and-alternative-value-monads)
+[![Monads in language-ext](img/monads-lang-ext.jpeg)](https://github.com/louthy/language-ext#optional-and-alternative-value-monads)
 
 ## Concrete Practice - Monads by Example
 

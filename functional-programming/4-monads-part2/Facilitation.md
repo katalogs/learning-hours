@@ -20,16 +20,20 @@ public record Account(string Number, decimal Balance)
 
 ![Limits](img/xtrem-limit.jpg)
 
-### Correction
+
+<details>
+  <summary markdown='span'>
+  Correction
+  </summary>
 
 - In terms of signature this method is pretty transparent: `decimal` -> `Option<Account>`
     - It says explicitly that the operation could fail
     - But does not explain why it could fail -> `None` only
 - Sometimes in our business system we need to make more sense of this kind of code
     - To apply recover logic for example
+</details>
 
 ## Concepts
-
 ### Try
 
 Try is a monadic container which represents a computation that `may either throw an exception or successfully completes`
