@@ -27,3 +27,6 @@ Each of them respect the 4C format as described [here](https://www.sammancoachin
 ## Functional Programming
 - [Pure Functions](functional-programming/1-pure-functions/Facilitation.md)
 - [Functors](functional-programming/2-functors/Facilitation.md)
+- [Monads (Option)](functional-programming/3-monads-part1/Facilitation.md)
+- [Monads (Try, Either)](functional-programming/4-monads-part2/Facilitation.md)
+- [FP in Real Life](functional-programming/5-real-life-example/Facilitation.md)
