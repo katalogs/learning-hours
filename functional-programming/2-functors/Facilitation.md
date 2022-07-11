@@ -17,13 +17,18 @@ Pick only the correct items:
 
 ![Functors?](img/wayne-functor.jpg)
 
-### Correction
+<details>
+  <summary markdown='span'>
+  Correction
+  </summary>
 
 - [ ] A functor is a type of function
 - [X] A functor is a mapping between categories
 - [X] A functor is any type that defines how map works
 - [ ] A functor is a fun constructor
 - [ ] The term functor comes from graph theory -> from `category` theory
+
+</details>
 
 ## Concepts
 
