@@ -36,7 +36,6 @@ namespace RealLifeExample.Tests
                     "Unknown user 376510ae-4e7e-11ea-b77f-2e728ce88121");
 
             [Fact]
-            public void When_Twitter_Authentication_Failed()
             public async Task When_Twitter_Registration_Failed()
                 => await AssertFailureAsync<TwitterRegistrationFailedException>(ExistingUser.Id,
                     "Not able to register rick@green.com on twitter");
@@ -97,7 +96,10 @@ namespace RealLifeExample.Tests
                     .ThrowAsync<TException>()
                     .WithMessage(expectedErrorMessage);
             }
+        }
 
+        public class Succeed : AccountServiceShould
+        {
             [Fact]
             public async Task Return_A_New_Tweet_Url()
             {

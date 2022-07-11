@@ -7,6 +7,7 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "docs", "docs", "{3413EAED-8DDE-4804-8703-9BA84C728D48}"
 	ProjectSection(SolutionItems) = preProject
 		..\Facilitation.md = ..\Facilitation.md
+		..\step-by-step.md = ..\step-by-step.md
 	EndProjectSection
 EndProject
 Global
