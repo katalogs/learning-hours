@@ -11,8 +11,13 @@ namespace PlayWithFunctors
 
         private int Add1AndDouble(int x)
         {
-            throw new NotImplementedException();
+            return Add1(x).Map(Double);
+            //return Double(Add1(x));
         }
+
+        private static int Add1(int x) => Add(x, 1);
+
+        private static int Double(int x) => Multiply(x, 2);
 
         [Fact]
         public void Add1AndDoubleIt()
@@ -37,6 +42,14 @@ namespace PlayWithFunctors
         private int AddXtoYAndDouble(int x, int y)
         {
             throw new NotImplementedException();
+        }
+    }
+
+    public static class IntExtensions
+    {
+        public static int Map(this int result, Func<int, int> mapFunc)
+        {
+            return mapFunc(result);
         }
     }
 }
