@@ -5,7 +5,6 @@ Each of them respect the 4C format as described [here](https://www.sammancoachin
 
 - [Generate Code from Usage](generate-code-from-usage/Facilitation.md)
 - [Understand the Mikado method](mikado-method/step-1/Facilitation.md)
-- [Discriminated Unions](discriminated-unions/Facilitation.md)
 - [Refactor Legacy Code with Seams](Seam-TripService/README.md)
 - [Crappy-Driven Development](crappy-driven-development/Facilitation.md)
 
@@ -30,3 +29,6 @@ Each of them respect the 4C format as described [here](https://www.sammancoachin
 - [Monads (Option)](functional-programming/3-monads-part1/Facilitation.md)
 - [Monads (Try, Either)](functional-programming/4-monads-part2/Facilitation.md)
 - [FP in Real Life](functional-programming/5-real-life-example/Facilitation.md)
+
+### Bonus
+- [Discriminated Unions](discriminated-unions/Facilitation.md)

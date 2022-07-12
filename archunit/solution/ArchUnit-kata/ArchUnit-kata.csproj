@@ -1,0 +1,46 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <RootNamespace>ArchUnit.Kata</RootNamespace>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <LangVersion>10</LangVersion>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="TngTech.ArchUnitNET" />
+    <None Remove="TngTech.ArchUnitNET.xUnit" />
+    <None Remove="Layered\" />
+    <None Remove="Layered\Controllers\" />
+    <None Remove="Layered\Services\" />
+    <None Remove="Layered\Repositories\" />
+    <None Remove="Layered\Models\" />
+    <None Remove="Examples\" />
+    <None Remove="Examples\Services\" />
+    <None Remove="Examples\Commands\" />
+    <None Remove="Microsoft.AspNetCore.Mvc.Core" />
+    <None Remove="Examples\Domain\" />
+    <None Remove="Examples\Models\" />
+    <None Remove="Examples\Contollers\" />
+    <None Remove="Slices\" />
+    <None Remove="Slices\Module1\" />
+    <None Remove="Slices\Module2\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Layered\" />
+    <Folder Include="Layered\Controllers\" />
+    <Folder Include="Layered\Services\" />
+    <Folder Include="Layered\Repositories\" />
+    <Folder Include="Layered\Models\" />
+    <Folder Include="Examples\" />
+    <Folder Include="Examples\Services\" />
+    <Folder Include="Examples\Commands\" />
+    <Folder Include="Examples\Domain\" />
+    <Folder Include="Examples\Models\" />
+    <Folder Include="Examples\Controllers\" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Core" Version="2.2.5" />
+  </ItemGroup>
+</Project>
