@@ -26,7 +26,7 @@ namespace PlayWithFunctors
             // Replace it, with a transformation method on people.
             var names =
                 Data.People
-                    .Find(x => x.Named("Mary"))
+                    .Find(x => x.Named("Mary Smith"))
                     .Bind(mary => mary.Pets)
                     .Map(pet => pet.Name);
 
