@@ -310,3 +310,4 @@ What is the most important thing you learnt today about the topic?
 - [XUnit Test Patterns - Refacoring Test Code](http://xunitpatterns.com/)
 - [Software craft - TDD, Clean Code et autres pratiques essentielles](https://www.dunod.com/sciences-techniques/software-craft-tdd-clean-code-et-autres-pratiques-essentielles)
 - [Dummy vs. Stub vs. Spy vs. Fake vs. Mock](https://nirajrules.wordpress.com/2011/08/27/dummy-vs-stub-vs-spy-vs-fake-vs-mock/)
+- [The little mocker](https://blog.cleancoder.com/uncle-bob/2014/05/14/TheLittleMocker.html)
