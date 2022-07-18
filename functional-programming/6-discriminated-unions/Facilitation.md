@@ -289,7 +289,9 @@ type evaluationResult =
 ```
 
 ### Solution
-A "solution" using `OneOf` library is available in the branch `OneOf` available [here](https://github.com/ythirion/oneof-money-problem/tree/OneOf/money-problem.Domain)
+A ***solution*** using `OneOf` library is available [here](https://github.com/ythirion/oneof-money-problem/tree/OneOf/money-problem.Domain)
+
+![Step by step](img/step-by-step.png)
 
 ## Conclusion (5min) - Impact
 According to you, what impact would the use of Discriminated Unions have on your code?
