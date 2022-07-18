@@ -2,9 +2,6 @@
 ## Learning Goals
 `Understand how Discriminated Unions can help write more explicit code`
 
-## Preparation
-- Use the ["OneOf money problem"](https://github.com/ythirion/oneof-money-problem/) in C#
-
 ## Connect - Improve or NOT improve ? (10 min)
 Identify what can be improved in the code below 
 
@@ -194,6 +191,7 @@ namespace discriminatedUnions.demo
 
 - What is the impact on the caller? a.k.a the test class
     - We need to plug the assertion on `OneOf`
+
 ```c#
 using System;
 using discriminatedUnions.demo;
@@ -279,8 +277,7 @@ Ask attendees to:
 - Identify where the code contains lies 
 - Refactor using `OneOf`
 
-
-Discriminated Unions in F# :
+### A word on Discriminated Unions in F#
 ```f#
 type conversionResult =
     | Money of Money
@@ -290,6 +287,9 @@ type evaluationResult =
     | Money of Money
     | ExchangeRates of string List
 ```
+
+### Solution
+A "solution" using `OneOf` library is available in the branch `OneOf` available [here](https://github.com/ythirion/oneof-money-problem/tree/OneOf/money-problem.Domain)
 
 ## Conclusion (5min) - Impact
 According to you, what impact would the use of Discriminated Unions have on your code?
