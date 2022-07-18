@@ -1,4 +1,5 @@
-using System;
+using System.Collections.Generic;
+using System.Linq;
 using FluentAssertions;
 using LanguageExt;
 using PlayWithFunctors.Persons;
@@ -13,7 +14,7 @@ namespace PlayWithFunctors
         public void GetFirstNamesOfAllPeople()
         {
             // Replace it, with a transformation method on people.
-            var firstNames = Seq<string>();
+            var firstNames = Data.People.Map(person => person.FirstName);
             var expectedFirstNames = new[] {"Mary", "Bob", "Ted", "Jake", "Barry", "Terry", "Harry", "John"};
 
             firstNames.Should().BeEquivalentTo(expectedFirstNames);
@@ -22,18 +23,39 @@ namespace PlayWithFunctors
         [Fact]
         public void GetNamesOfMarySmithsPets()
         {
-            var person = GetPersonNamed("Mary Smith");
-
             // Replace it, with a transformation method on people.
-            Seq<string> names = Seq<string>();
+            var names =
+                Data.People
+                    .Find(x => x.Named("Mary Smith"))
+                    .Bind(mary => mary.Pets)
+                    .Map(pet => pet.Name);
 
             names.Single()
                 .Should()
                 .Be("Tabby");
         }
 
-        private Person GetPersonNamed(string fullName) =>
-            throw new NotImplementedException();
+
+        private void GetPetsWithLinQ()
+        {
+            var withLinQ = Data.People
+                .FirstOrDefault(x => x.Named("Mary"))
+                .Pets
+                .Select(pet => pet.Name);
+
+            var persons = new List<Person>()
+            {
+                new Person("Mary", "Smith").AddPet(PetType.Cat, "Tabby", 2),
+                new Person("Bob", "Smith")
+                    .AddPet(PetType.Cat, "Dolly", 3)
+                    .AddPet(PetType.Dog, "Spot", 2)
+            };
+
+            persons
+                .Find(x => x.Named("Mary"))?
+                .Pets
+                .Map(pet => pet.Name);
+        }
 
         [Fact]
         public void GetPeopleWithCats()
