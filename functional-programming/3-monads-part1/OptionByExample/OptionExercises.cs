@@ -45,9 +45,11 @@ namespace OptionByExample
         public void FilterAListOfPerson()
         {
             // Filter the persons list with only defined persons
-            var definedPersons = Seq<Person>();
+            var definedPersons = _persons;
 
-            definedPersons
+            var list = definedPersons.Bind(_ => _);
+
+            list
                 .Should()
                 .HaveCount(2);
         }
