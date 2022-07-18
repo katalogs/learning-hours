@@ -1,69 +1,18 @@
-# Step-by-step
-## Calculator - Refactor the tests
-> You should pay the same attention to your tests as to your production code.
-
-- Let's remove duplication
-  - assertion code is duplicated
-  - we instantiate 1 `Calculator` per test, but we can use the same (no state inside)
-- In `xUnit` for this kind of test we can use `Parameterized tests`
-  - We define a `[Theory]` method that takes some data as input `[InlineData]`
-  - We adapt the test method as well `public void SupportOperations(int a, int b, string @operator, int expectedResult)`
-- We can use a library that simplify assertion readability as well called [FluentAssertions](https://fluentassertions.com/)
-
-```c#
-public class RefactoredCalculatorShould
-{
-    private readonly Calculator _calculator = new();
-
-    [Theory]
-    [InlineData(9, 3, Add, 12)]
-    [InlineData(3, 76, Multiply, 228)]
-    [InlineData(9, 3, Divide, 3)]
-    [InlineData(9, 3, Subtract, 6)]
-    public void SupportOperations(int a, int b, string @operator, int expectedResult) =>
-        _calculator
-            .Calculate(a, b, @operator)
-            .Should()
-            .Be(expectedResult);
-
-    [Fact]
-    public void FailWhenOperatorNotSupported() =>
-        _calculator.Invoking(_ => _.Calculate(9, 3, "UnsupportedOperator"))
-            .Should()
-            .Throw<ArgumentException>()
-            .WithMessage("Not supported operator");
-}
-```
-
-> There is one Edge case not yet supported, what happens if we divide by 0? 
-
-```text
-✅ 9 + 3 = 12
-✅ 3 x 76 = 228
-✅ 9 / 3 = 3
-✅ 9 - 3 = 9
-✅ Unsupported operator should fail
-Divide by 0 should fail
-```
-
-## Time
+# TimeUtility
 - Write at least one test for it
 
 ```c#
-public class TimeUtility
+public static string GetTimeOfDay()
 {
-    public string GetTimeOfDay()
-    {
-        var time = DateTime.Now;
+    var time = DateTime.Now;
 
-        return time.Hour switch
-        {
-            >= 0 and < 6 => "Night",
-            >= 6 and < 12 => "Morning",
-            >= 12 and < 18 => "Afternoon",
-            _ => "Evening"
-        };
-    }
+    return time.Hour switch
+    {
+        >= 0 and < 6 => "Night",
+        >= 6 and < 12 => "Morning",
+        >= 12 and < 18 => "Afternoon",
+        _ => "Evening"
+    };
 }
 ```
 
@@ -81,7 +30,7 @@ public class TimeUtilityShould
 }
 ```
 
-- This test is not repeatable because the design is coupled to `LocalTime.now()`
+- This test is not repeatable because the design is coupled to `DateTime.Now`
     - We need to isolate it to be able to test this unitary
     - A few solutions here :
         - Pass a `DateTime` as method arg
@@ -127,7 +76,7 @@ public interface IClock
 
 - Now our code has no `hardcoded` dependency anymore
 - We need to adapt our tests
-  - How to provide a `IClock` in the given state for our test cases?
+  - How to provide an `IClock` in the given state for our test cases?
   - `Test Doubles` is our solution
 
 - To use TestDoubles we need to use `moq`
