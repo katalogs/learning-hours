@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Globalization;
 using System.Text;
 using FluentAssertions;
 using FluentAssertions.LanguageExt;
@@ -25,8 +26,11 @@ namespace OptionByExample
             // Map it to an Upper case function
             // Then it must return the string "Ich bin empty" if empty
             var iamAnOption = Option<string>.None;
-            string optionValue = null;
+            const string noneMessage = "Ich bin empty";
 
+            string optionValue = iamAnOption
+                .Map(x => x.ToUpper(CultureInfo.InvariantCulture))
+                .IfNone(noneMessage);
 
             iamAnOption
                 .Should()
@@ -34,7 +38,7 @@ namespace OptionByExample
 
             optionValue
                 .Should()
-                .Be("Ich bin empty");
+                .Be(noneMessage);
         }
 
         [Fact]
