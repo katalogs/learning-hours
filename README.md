@@ -32,4 +32,4 @@ Each of them respect the 4C format as described [here](https://www.sammancoachin
 - [FP in Real Life](functional-programming/5-real-life-example/Facilitation.md)
 
 ### Bonus
-- [Discriminated Unions](discriminated-unions/Facilitation.md)
+- [Discriminated Unions](functional-programming/6-discriminated-unions/Facilitation.md)
