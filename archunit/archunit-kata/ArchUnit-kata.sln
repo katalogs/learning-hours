@@ -1,0 +1,36 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 25.0.1700.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ArchUnit-kata", "ArchUnit-kata\ArchUnit-kata.csproj", "{C3403E4B-B18A-4321-B353-AC20DAAE2634}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ArchUnit-kata-tests", "ArchUnit-kata-tests\ArchUnit-kata-tests.csproj", "{0BE38164-EC51-482D-9D13-A6C2E614C0F5}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "docs", "docs", "{58F31381-45EE-452A-A64F-483D3F1F1978}"
+	ProjectSection(SolutionItems) = preProject
+		..\Facilitation.md = ..\Facilitation.md
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{C3403E4B-B18A-4321-B353-AC20DAAE2634}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C3403E4B-B18A-4321-B353-AC20DAAE2634}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C3403E4B-B18A-4321-B353-AC20DAAE2634}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C3403E4B-B18A-4321-B353-AC20DAAE2634}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0BE38164-EC51-482D-9D13-A6C2E614C0F5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0BE38164-EC51-482D-9D13-A6C2E614C0F5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0BE38164-EC51-482D-9D13-A6C2E614C0F5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0BE38164-EC51-482D-9D13-A6C2E614C0F5}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {1E2726B4-4C75-4B91-8803-4C04EC25F540}
+	EndGlobalSection
+EndGlobal

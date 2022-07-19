@@ -7,6 +7,7 @@ Each of them respect the 4C format as described [here](https://www.sammancoachin
 - [Understand the Mikado method](mikado-method/step-1/Facilitation.md)
 - [Refactor Legacy Code with Seams](Seam-TripService/README.md)
 - [Crappy-Driven Development](crappy-driven-development/Facilitation.md)
+- [Test your Architecture with ArchUnit](archunit/Facilitation.md)
 
 ## Clean Testing
 - [Anatomy of Unit Tests](clean-testing/1-test-anatomy/Facilitation.md)
@@ -31,4 +32,4 @@ Each of them respect the 4C format as described [here](https://www.sammancoachin
 - [FP in Real Life](functional-programming/5-real-life-example/Facilitation.md)
 
 ### Bonus
-- [Discriminated Unions](functional-programming/6-discriminated-unions/Facilitation.md)
+- [Discriminated Unions](discriminated-unions/Facilitation.md)
