@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ParameterizedTests.Tests", "ParameterizedTests.Tests\ParameterizedTests.Tests.csproj", "{75AD239A-FA3A-4C5A-B107-A8E7634261DD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ParameterizedTests", "ParameterizedTests\ParameterizedTests.csproj", "{CA5CAA2B-5152-4EEC-AB4C-04EA8CC4B9CA}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Documentation", "Documentation", "{6AFBDA93-1A03-4717-A74C-4F6493C2998C}"
+	ProjectSection(SolutionItems) = preProject
+		..\Facilitation.md = ..\Facilitation.md
+		..\step-by-step.md = ..\step-by-step.md
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{75AD239A-FA3A-4C5A-B107-A8E7634261DD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{75AD239A-FA3A-4C5A-B107-A8E7634261DD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{75AD239A-FA3A-4C5A-B107-A8E7634261DD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{75AD239A-FA3A-4C5A-B107-A8E7634261DD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CA5CAA2B-5152-4EEC-AB4C-04EA8CC4B9CA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CA5CAA2B-5152-4EEC-AB4C-04EA8CC4B9CA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CA5CAA2B-5152-4EEC-AB4C-04EA8CC4B9CA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CA5CAA2B-5152-4EEC-AB4C-04EA8CC4B9CA}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal

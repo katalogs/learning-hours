@@ -12,6 +12,7 @@ Each of them respect the 4C format as described [here](https://www.sammancoachin
 ## Clean Testing
 - [Anatomy of Unit Tests](clean-testing/1-test-anatomy/Facilitation.md)
 - [Test Doubles](clean-testing/4-test-doubles/Facilitation.md)
+- [Parameterized Tests](clean-testing/5-parameterized-tests/Facilitation.md)
 - [Styles of Unit Tests](clean-testing/6-styles-of-unit-tests/Facilitation.md)
 - [The hunt for anti-patterns](clean-testing/7-anti-patterns/Facilitation.md)
 - [The hunt for 100% code coverage](clean-testing/8-hunt-to-100percent-coverage/Facilitation.md)
