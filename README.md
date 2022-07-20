@@ -1,4 +1,5 @@
 # Learning Hours
+
 This repository contains our `learning hours` to share dev techniques, practices and principles.
 
 Each of them respect the 4C format as described [here](https://www.sammancoaching.org/)
@@ -10,6 +11,7 @@ Each of them respect the 4C format as described [here](https://www.sammancoachin
 - [Test your Architecture with ArchUnit](archunit/Facilitation.md)
 
 ## Clean Testing
+
 - [Anatomy of Unit Tests](clean-testing/1-test-anatomy/Facilitation.md)
 - [Test Doubles](clean-testing/4-test-doubles/Facilitation.md)
 - [Styles of Unit Tests](clean-testing/6-styles-of-unit-tests/Facilitation.md)
@@ -17,14 +19,18 @@ Each of them respect the 4C format as described [here](https://www.sammancoachin
 - [The hunt for 100% code coverage](clean-testing/8-hunt-to-100percent-coverage/Facilitation.md)
 
 ## Test data builders
+
 - [Refactoring test inputs with Test Data Builders](test-data-builders/refactoring-test-inputs-with-test-data-builders/Facilitation.md)
 - [Business oriented Test Data Builders](test-data-builders/business-oriented-test-data-builders/Facilitation.md)
+- [Fuzzing Test Data Builders](test-data-builders/3-fuzzing-data-builders/Facilitation.md)
 
 ## Specification Pattern
+
 - [Discover the Specification Pattern](specification-pattern/discover-specification-pattern/Facilitation.md)
 - [Specification Pattern 2.0](specification-pattern/specification-2.0/Facilitation.md)
 
 ## Functional Programming
+
 - [Pure Functions](functional-programming/1-pure-functions/Facilitation.md)
 - [Functors](functional-programming/2-functors/Facilitation.md)
 - [Monads (Option)](functional-programming/3-monads-part1/Facilitation.md)
@@ -32,4 +38,5 @@ Each of them respect the 4C format as described [here](https://www.sammancoachin
 - [FP in Real Life](functional-programming/5-real-life-example/Facilitation.md)
 
 ### Bonus
+
 - [Discriminated Unions](functional-programming/6-discriminated-unions/Facilitation.md)
