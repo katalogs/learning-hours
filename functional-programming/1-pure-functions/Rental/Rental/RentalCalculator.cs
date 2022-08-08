@@ -1,3 +1,4 @@
+using System.Globalization;
 using System.Text;
 
 namespace Rental
@@ -5,6 +6,7 @@ namespace Rental
     public class RentalCalculator
     {
         private readonly IEnumerable<Rental> _rentals;
+        private readonly CultureInfo _invariantCulture = CultureInfo.InvariantCulture;
         public bool IsCalculated { get; private set; }
         public double Amount { get; private set; }
 
@@ -29,13 +31,13 @@ namespace Rental
                 result.Append(FormatLine(rental, rental.Amount));
             }
 
-            result.Append($"Total amount | {Amount}");
+            result.Append($"Total amount | {Amount.ToString(_invariantCulture)}");
             IsCalculated = true;
 
             return result.ToString();
         }
 
         private string FormatLine(Rental rental, double amount)
-            => $"{rental.Date.ToString("dd-MM-yyyy")} : {rental.Label} | {rental.Amount}{Environment.NewLine}";
+            => $"{rental.Date.ToString("dd-MM-yyyy")} : {rental.Label} | {amount.ToString(_invariantCulture)}{Environment.NewLine}";
     }
 }
