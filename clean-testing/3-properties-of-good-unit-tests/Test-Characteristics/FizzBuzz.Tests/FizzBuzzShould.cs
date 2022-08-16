@@ -32,17 +32,6 @@ namespace FizzBuzz.Tests
                 .Should()
                 .Be("Buzz");
 
-        [Fact]
-        public void Return_Valid_String()
-        {
-            var random = new Random();
-            var randomInt = ValidInt(random);
-
-            _fizzBuzz.Convert(randomInt)
-                .Should()
-                .BeOneOf("Fizz", "Buzz", "FizzBuz");
-        }
-
         [Theory]
         [InlineData(15)]
         [InlineData(45)]
@@ -62,6 +51,17 @@ namespace FizzBuzz.Tests
                 .NotBeNull("Should return something")
                 .And
                 .StartWith("Simple Value :");
+
+        [Fact]
+        public void Return_Valid_String()
+        {
+            var random = new Random();
+            var randomInt = ValidInt(random);
+
+            _fizzBuzz.Convert(randomInt)
+                .Should()
+                .BeOneOf("Fizz", "Buzz", "FizzBuz");
+        }
 
         [Fact]
         public void Write_Results_With_Big_FizzBuzz_For_Human_Validation()
