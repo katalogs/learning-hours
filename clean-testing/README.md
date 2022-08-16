@@ -2,7 +2,6 @@
 - Properties of Good Unit Tests
 	- Test Desiderata
 	- 3 Pillars + 1 foundation
-- Parameterized Tests
 - Solitary vs Sociable tests
 	- Schools of TDD
 - Types of code
