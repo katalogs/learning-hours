@@ -2,6 +2,8 @@ using System;
 using FluentAssertions;
 using Xunit;
 using static System.Linq.Enumerable;
+using static FizzBuzz.FizzBuzz;
+using static FizzBuzz.Tests.FileUtils;
 using static FizzBuzz.Tests.RandomExtensions;
 
 namespace FizzBuzz.Tests
@@ -17,7 +19,7 @@ namespace FizzBuzz.Tests
         [InlineData(81)]
         public void Return_Fizz_For_Multiples_Of3(int value)
         {
-            _fizzBuzz = FizzBuzz.New();
+            _fizzBuzz = New();
             _fizzBuzz.Convert(value)
                 .Should()
                 .Be("Fizz");
@@ -42,10 +44,10 @@ namespace FizzBuzz.Tests
                 .Be("FizzBuzz");
 
         [Theory]
-        [InlineData(1, "Simple Value : 1")]
-        [InlineData(23, "Simple Value : 23")]
-        [InlineData(76, "Simple Value : 76")]
-        public void Return_The_Value_For_Others(int value, string expectedResult) =>
+        [InlineData(1)]
+        [InlineData(23)]
+        [InlineData(76)]
+        public void Return_The_Value_For_Others(int value) =>
             _fizzBuzz.Convert(value)
                 .Should()
                 .NotBeNull("Should return something")
@@ -66,12 +68,12 @@ namespace FizzBuzz.Tests
         [Fact]
         public void Write_Results_With_Big_FizzBuzz_For_Human_Validation()
         {
-            FileUtils.DeleteFile(ResultFile);
+            DeleteFile(ResultFile);
 
             const int lowerBound = 1;
             const int upperBound = 50_000;
 
-            var bigFizzBuzz = FizzBuzz.New(lowerBound, upperBound);
+            var bigFizzBuzz = New(lowerBound, upperBound);
 
             var result =
                 Range(lowerBound, upperBound)
@@ -79,8 +81,8 @@ namespace FizzBuzz.Tests
                     .Select(v => bigFizzBuzz.Convert(v))
                     .Aggregate("", (acc, value) => $"{acc}{value}{Environment.NewLine}");
 
-            FileUtils.AppendToFile(ResultFile, result);
-            FileUtils.CountLines(ResultFile)
+            AppendToFile(ResultFile, result);
+            CountLines(ResultFile)
                 .Should()
                 .Be(upperBound);
         }

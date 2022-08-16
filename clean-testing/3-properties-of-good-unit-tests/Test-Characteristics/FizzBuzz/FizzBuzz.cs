@@ -27,7 +27,7 @@
         private bool IsInRange(int value)
             => value >= _lowerBound && value <= _upperBound;
 
-        private string ConvertSafely(int value) =>
+        private static string ConvertSafely(int value) =>
             (value % 3, value % 5) switch
             {
                 (0, 0) => "FizzBuzz",
