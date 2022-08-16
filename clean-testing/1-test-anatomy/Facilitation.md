@@ -20,7 +20,10 @@ In small groups, categorize each sentence about Unit tests in :
 - It reduces the cost of development
 - It takes too much time to write
 
-### Correction
+<details>
+  <summary markdown='span'>
+  Correction
+  </summary>
 #### Myths
 - It makes changes more difficult to make
   - Makes changes easier to make 
@@ -51,6 +54,7 @@ In small groups, categorize each sentence about Unit tests in :
 - It reduces the cost of development 
   - Since the bugs are found early, unit testing helps reduce the cost of bug fixes 
   - Bugs detected earlier are easier to fix
+</details>
 
 ## Concepts
 ### What is a Unit Test?
