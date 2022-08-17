@@ -33,7 +33,10 @@ Definitions:
 
 ![Word association](img/word-association.jpg)
 
-### Correction
+<details>
+  <summary markdown='span'>
+  Correction
+  </summary>
 
 - `Test Double`: We replace a component on which the Subject Under Test depends with a "test-specific equivalent."
 - `Spy`: Test Double to capture the indirect output calls made to another component by the system under test (SUT) for
@@ -45,6 +48,8 @@ Definitions:
   used correctly by the SUT.
 - `Dummy`: We pass an object that has no implementation as an argument of a method called on the SUT.
 - `SUT`: Subject Under Test
+
+</details>
 
 ## Concepts - 50 Shades of Test Doubles
 
