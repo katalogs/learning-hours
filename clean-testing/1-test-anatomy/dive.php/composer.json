@@ -1,0 +1,8 @@
+{
+    "require-dev": {
+    "phpunit/phpunit": ">=5.0"
+    },
+    "require": {
+        "php": ">=7.1"
+    }
+}
