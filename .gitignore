@@ -347,3 +347,6 @@ CoverageResults/
 # Javascript
 yarn.lock
 **/coverage/
+
+# PHP
+vendor/
