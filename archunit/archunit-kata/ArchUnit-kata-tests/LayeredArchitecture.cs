@@ -36,8 +36,11 @@ namespace ArchUnit.Kata.Tests
 
         [Fact]
         public void ApplicationRules() =>
-            EmptyRule("Application Layer should depend on Presentation Layer")
-                .Check();
+            ApplicationLayer()
+            .Should().NotDependOnAny(DataAccessLayer())
+            .AndShould().NotDependOnAny(ModelLayer())
+            .Because("Application Layer should depend on Presentation Layer")
+            .Check();
 
         [Fact]
         public void DataAccessRules() =>
