@@ -1,4 +1,5 @@
 ﻿using ArchUnit.Kata.Layered.Controllers;
+using ArchUnit.Kata.Layered.Models;
 using ArchUnitNET.Domain;
 using ArchUnitNET.Fluent;
 using ArchUnitNET.Fluent.Syntax.Elements.Types;
@@ -12,7 +13,9 @@ namespace ArchUnit.Kata.Tests
     {
         private static readonly Architecture Architecture =
             new ArchLoader()
-                .LoadAssemblies(typeof(SuperHeroController).Assembly)
+                .LoadAssemblies(
+                typeof(SuperHeroController).Assembly, 
+                typeof(SuperHero).Assembly)
                 .Build();
 
         public static GivenTypesConjunction TypesInAssembly()

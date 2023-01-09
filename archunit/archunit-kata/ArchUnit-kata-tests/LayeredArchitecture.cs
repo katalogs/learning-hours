@@ -45,8 +45,12 @@ namespace ArchUnit.Kata.Tests
                 .Check();
 
         [Fact]
-        public void ModelRules() =>
-            EmptyRule("Model Layer should not depend on any other layer")
-                .Check();
+        public void ModelRules() => 
+            ModelLayer().Should()
+            .NotDependOnAny(PresentationLayer())
+            .AndShould().NotDependOnAny(DataAccessLayer())
+            .AndShould().NotDependOnAny(ApplicationLayer())
+            .Because("Model layer should not depend on other layers (DDD)")
+            .Check();
     }
 }
