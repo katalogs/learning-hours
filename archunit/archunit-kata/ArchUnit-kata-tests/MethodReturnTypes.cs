@@ -11,6 +11,8 @@ using static ArchUnitNET.Fluent.ArchRuleDefinition;
 
 using Xunit;
 using static ArchUnit.Kata.Tests.ArchUnitExtensions;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 
 namespace ArchUnit.Kata.Tests
 {
@@ -24,8 +26,12 @@ namespace ArchUnit.Kata.Tests
                 .Check();
 
         [Fact]
-        public void ControllersPublicMethodShouldOnlyReturnApiResponse() =>
-            EmptyRule("Controllers public methods should only return ApiResponse")
-                .Check();
+        public void ControllersPublicMethodShouldOnlyReturnApiResponse() => MethodMembers()
+            .That().AreDeclaredIn(typeof(SuperHeroController))
+            .And().ArePublic()
+            .And().AreNoConstructors()
+            .Should().HaveReturnType(typeof(ActionResult))
+            .Because("Controllers public methods should only return ActionResult")
+            .Check();
     }
 }
