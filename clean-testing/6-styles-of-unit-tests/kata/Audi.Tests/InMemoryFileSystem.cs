@@ -7,8 +7,10 @@ using System.Threading.Tasks;
 
 namespace Audi.Tests
 {
-    public class InMemoryFileSystem : IFileSystem 
+    public class InMemoryFileSystem : IFileSystem
     {
+        public Dictionary<string, string> ListFiles = new Dictionary<string, string>();
+
         public void AddFiles()
         {
 
@@ -26,7 +28,7 @@ namespace Audi.Tests
 
         public void WriteAllText(string filePath, string content)
         {
-            throw new NotImplementedException();
+            ListFiles.Add(filePath, content);
         }
     }
 }
