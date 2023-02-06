@@ -1,5 +1,6 @@
 using System;
 using FluentAssertions;
+using Moq;
 using Xunit;
 
 namespace TestDoubles.Stub
@@ -26,6 +27,30 @@ namespace TestDoubles.Stub
             calculator.Invoking(_ => _.Divide(9, 3))
                 .Should()
                 .Throw<UnauthorizedAccessException>();
+        }
+
+        [Fact]
+        public void Should_Divide_A_Numerator_By_A_Denominator_When_Authorization_Is_Denied_Moq()
+        {
+            var authorizerStub = new Mock<IAuthorizer>();
+            authorizerStub.Setup(x => x.Authorize()).Returns(false);
+            var calculator = new Calculator(authorizerStub.Object);
+
+            calculator.Invoking(_ => _.Divide(9, 3))
+                .Should()
+                .Throw<UnauthorizedAccessException>();
+        }
+
+        [Fact]
+        public void Should_Divide_A_Numerator_By_A_Denominator_When_Authorization_Is_Accepted_Moq()
+        {
+            var authorizerStub = new Mock<IAuthorizer>();
+            authorizerStub.Setup(x => x.Authorize()).Returns(true);
+            var calculator = new Calculator(authorizerStub.Object);
+
+            calculator.Divide(9, 3)
+                .Should()
+                .Be(3);
         }
     }
 }
