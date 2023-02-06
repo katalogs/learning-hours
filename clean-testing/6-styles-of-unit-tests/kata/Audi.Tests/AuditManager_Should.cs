@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Xml;
 using Audit;
 using Moq;
@@ -16,15 +17,15 @@ public class AuditManager_Should
     public void A_new_file_is_created_when_the_current_file_overflows()
     {
         // Arrange
-        //var fileSystemMock = new Mock<IFileSystem>();
-        //fileSystemMock
-        //    .Setup(x => x.GetFiles(DirectoryName))
-        //    .Returns(new string[]
-        //    {
-        //        Path.Combine(DirectoryName, "audit_1.txt"),
-        //        Path.Combine(DirectoryName, "audit_2.txt")
-        //    });
-        
+        var fileSystemMock = new Mock<IFileSystem>();
+        fileSystemMock
+            .Setup(x => x.GetFiles(DirectoryName))
+            .Returns(new string[]
+            {
+                Path.Combine(DirectoryName, "audit_1.txt"),
+                //Path.Combine(DirectoryName, "audit_2.txt")
+            });
+
         //fileSystemMock
         //    .Setup(x => x.ReadAllLines(Path.Combine(DirectoryName, "audit_2.txt")))
         //    .Returns(new List<string>
@@ -42,7 +43,7 @@ public class AuditManager_Should
         // Assert
         var result = mock.ListFiles.TryGetValue(Path.Combine(DirectoryName, "audit_3.txt"), out var fileContent);
         Assert.True(result);
-        Assert.Equal("Alice;2019-04-06 18:00:00", fileContent);
+        Assert.Equal("Alice;2019-04-06 18:00:00", fileContent.FirstOrDefault());
     }
 
     [Fact]

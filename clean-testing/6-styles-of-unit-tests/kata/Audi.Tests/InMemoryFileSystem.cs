@@ -1,6 +1,7 @@
 ﻿using Audit;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -14,19 +15,19 @@ namespace Audi.Tests
 
         public void AddFiles()
         {
-            ListFiles.Add("audit_1.txt", new List<string>());
-            ListFiles.Add("audit_2.txt", new List<string>
+            ListFiles.Add(Path.Combine(DirectoryName, "audit_1.txt"), new List<string>());
+            ListFiles.Add(Path.Combine(DirectoryName, "audit_2.txt"), new List<string>
             {
                 "Peter;2019-04-06 16:30:00",
                 "Jane;2019-04-06 16:40:00",
                 "Jack;2019-04-06 17:00:00"
             });
-            ListFiles.Add("audit_3.txt", new List<string>());
+            ListFiles.Add(Path.Combine(DirectoryName, "audit_3.txt"), new List<string>());
         }
 
         public string[] GetFiles(string directoryName)
         {
-            throw new NotImplementedException();
+            return ListFiles.Keys.ToArray();
         }
 
         public IEnumerable<string> ReadAllLines(string filePath)
@@ -36,7 +37,8 @@ namespace Audi.Tests
 
         public void WriteAllText(string filePath, string content)
         {
-            ListFiles.Add(filePath, content);
+            var valueSplited = content.Split("\n");
+            ListFiles.Add(filePath, valueSplited);
         }
     }
 }
