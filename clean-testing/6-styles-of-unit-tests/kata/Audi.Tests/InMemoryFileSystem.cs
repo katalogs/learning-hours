@@ -9,11 +9,19 @@ namespace Audi.Tests
 {
     public class InMemoryFileSystem : IFileSystem
     {
-        public Dictionary<string, string> ListFiles = new Dictionary<string, string>();
+        private const string DirectoryName = "audits";
+        public Dictionary<string, IEnumerable<string>> ListFiles = new Dictionary<string, IEnumerable<string>>();
 
         public void AddFiles()
         {
-
+            ListFiles.Add("audit_1.txt", new List<string>());
+            ListFiles.Add("audit_2.txt", new List<string>
+            {
+                "Peter;2019-04-06 16:30:00",
+                "Jane;2019-04-06 16:40:00",
+                "Jack;2019-04-06 17:00:00"
+            });
+            ListFiles.Add("audit_3.txt", new List<string>());
         }
 
         public string[] GetFiles(string directoryName)
