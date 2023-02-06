@@ -1,6 +1,8 @@
+using FluentAssertions;
+using Moq;
 using System.Collections.Generic;
 using System.IO;
-using FluentAssertions;
+using System.Linq;
 using Xunit;
 
 namespace TestDoubles.Fake
@@ -29,6 +31,30 @@ namespace TestDoubles.Fake
                 .And
                 .Contain(
                     "Hello : Rick Dalton, I have just received a new scenario called 'The 14 fists of McCluskey' !!!");
+        }
+
+        [Fact]
+        public void Should_Notify_Twice_When_Receiving_A_Scenario_And_Having_Two_Clients_Moq()
+        {
+
+            var mockNotifier = new Mock<INotifier>();
+
+            var clients = new List<Client>
+            {
+                new("Cliff Booth", "cliff.booth@double.com"),
+                new("Rick Dalton", "rick.dalton@double.com")
+            };
+
+            var scriptEventHandler = new ScenarioReceivedEventHandler(mockNotifier.Object, clients);
+
+            scriptEventHandler.Handle(new ScenarioReceived("The 14 fists of McCluskey"));
+
+            mockNotifier.Verify(
+                _ => _.Notify(clients.First(),
+                    new ScenarioReceived("The 14 fists of McCluskey")));
+            mockNotifier.Verify(
+                _ => _.Notify(clients.Last(),
+                    new ScenarioReceived("The 14 fists of McCluskey")));
         }
     }
 }
