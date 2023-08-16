@@ -1,4 +1,6 @@
-﻿namespace ArchUnit.Kata.Layered.Repositories
+﻿using System.Threading.Tasks;
+
+namespace ArchUnit.Kata.Layered.Repositories
 {
     public interface ISuperHeroRepository
     {
