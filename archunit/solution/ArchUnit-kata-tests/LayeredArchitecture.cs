@@ -1,4 +1,7 @@
-﻿using ArchUnitNET.Fluent.Syntax.Elements.Types;
+﻿using System;
+using ArchUnit.Kata.Layered.Controllers;
+using ArchUnit.Kata.Layered.Models;
+using ArchUnitNET.Fluent.Syntax.Elements.Types;
 using Xunit;
 using static ArchUnit.Kata.Tests.ArchUnitExtensions;
 
@@ -39,11 +42,14 @@ namespace ArchUnit.Kata.Tests
                 .Check();
 
         [Fact]
-        public void DataAccessRules() =>
+        public void DataAccessRules()
+        {
+            Console.WriteLine(typeof(SuperHeroController).Assembly.FullName);
             DataAccessLayer().Should()
                 .NotDependOnAny(ApplicationLayer()).AndShould()
                 .NotDependOnAny(PresentationLayer())
                 .Check();
+        }
 
         [Fact]
         public void ModelRules() =>
