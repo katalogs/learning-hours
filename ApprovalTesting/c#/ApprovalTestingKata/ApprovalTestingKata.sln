@@ -1,0 +1,22 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ApprovalTestingKata", "ApprovalTestingKata\ApprovalTestingKata.csproj", "{1C1A3B6A-299D-4822-BC0F-C69B33E0433F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ApprovalTestingKata.Tests", "ApprovalTestingKata.Tests\ApprovalTestingKata.Tests.csproj", "{398EEF65-FB88-4256-A1FD-17225B7305C4}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{1C1A3B6A-299D-4822-BC0F-C69B33E0433F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1C1A3B6A-299D-4822-BC0F-C69B33E0433F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1C1A3B6A-299D-4822-BC0F-C69B33E0433F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1C1A3B6A-299D-4822-BC0F-C69B33E0433F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{398EEF65-FB88-4256-A1FD-17225B7305C4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{398EEF65-FB88-4256-A1FD-17225B7305C4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{398EEF65-FB88-4256-A1FD-17225B7305C4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{398EEF65-FB88-4256-A1FD-17225B7305C4}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
