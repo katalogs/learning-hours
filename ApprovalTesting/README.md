@@ -1,12 +1,16 @@
 # Approval testing
-A step by step file (for the animator) exit [here](step-by-step.md)
+
+A step by step file (for the animator) exist in [java](java/step-by-step.md) or [c#](c#/step-by-step.md)
+
 ## Learning Goals
 
 - Understand the approval testing concept
-- Try the ApprovalTests java lib 
-- (Optionnal) Introduce Golden master and [Combination approval](https://github.com/approvals/ApprovalTests.Java/blob/master/approvaltests/docs/how_to/TestCombinations.md)
+- Use an approval testing library
+- (Optionnal) Introduce Golden master
+  and [Combination approval](https://github.com/approvals/ApprovalTests.Java/blob/master/approvaltests/docs/how_to/TestCombinations.md)
 
 ## Connect - Pros & cons
+
 List pros and cons of those two tests:
 
 ```java
@@ -56,10 +60,15 @@ List pros and cons of those two tests:
 ```
 
 ## Concept
-Approval test take a "picture" of an entry (object, String, array, ...) and compares it with a reference version of that picture - the approved version, thus approval testing -.
+
+Approval test take a "picture" of an entry (object, String, array, ...) and compares it with a reference version of that
+picture - the approved version, thus approval testing -.
 
 ## Concrete practice
+
 Refactor tests from OrderTest to use Approval
 
-(Optional) Use [Combination approval](https://github.com/approvals/ApprovalTests.Java/blob/master/approvaltests/docs/how_to/TestCombinations.md) to create test for product tax calculation
+(Optional)
+Use [Combination approval](https://github.com/approvals/ApprovalTests.Java/blob/master/approvaltests/docs/how_to/TestCombinations.md)
+to create test for product tax calculation
 
