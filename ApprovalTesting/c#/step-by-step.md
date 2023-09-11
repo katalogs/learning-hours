@@ -49,60 +49,27 @@ The first launch of the test create the file
 `OrderTests.New_order_should_have_correct_values.received.txt`, review it and move it to its approved counterpart:
 `OrderTests.New_order_should_have_correct_values.verified.txt`
 
-### Recommended [@TODO]
-
-`verifyAsJson` is deprecated, ApprovalTesting prefer that you use any json parser that you want, to give back control of
-the parser. You can use the gson serializer, which is installed in the project:
-
-```java
-Approvals.verify(new Gson().toJson(order));
-```
-
-Problem, the approved file extension is txt. You may juste add the option of the extension in verify:
-
-```java
-Approvals.verify(new Gson().toJson(order));
-```
-
-Finally, you may add useful options to gson, like pretty json to ease reading, or null serialization which might be
-important (but not in this example)
-
-```
-Approvals.verify(
-    new GsonBuilder()
-        .setPrettyPrinting()
-        .serializeNulls()
-        .create()
-    .toJson(order),"json");
-```
-
 ### Combine for more test data
 
-You may introduce the combine functionality, and/or the golden master technique and/or fuzz testing. Example of combine
-to test multiples products:
+You may introduce the combine functionality, and/or the golden master technique and/or fuzz testing.
 
-```java 
-    @Test
-    void products_should_have_correct_values() {
-        // Arrange
-        String[] names = {"salad","tomato","race kart"};
-        BigDecimal[] prices = { new BigDecimal("3.4"), new BigDecimal("5.5") };
-        Category[] categories = {
-            new Category("food", new BigDecimal("10")),
-            new Category("toy", new BigDecimal("20"))
-        };
+Combinatorial functionality is provided by a mix
+between [Xunit.Combinatorial](https://github.com/AArnott/Xunit.Combinatorial) and
+the [Verify's ability to use parameters as part of file names](https://github.com/VerifyTests/Verify/blob/main/docs/parameterised.md)
 
-        // Act
+Example of combine to test multiples products:
 
-        // Assert
-        Gson gson = new GsonBuilder()
-                .setPrettyPrinting()
-                .serializeNulls()
-                .create();
-        CombinationApprovals.verifyAllCombinations(
-                (name, price, category) -> {
-                    Product product = new Product(name, price, category);
-                    return "Tax: " + product.getTax() + " - Price: " + product.getTaxedAmount();
-                }, names, prices, categories );
+```csharp 
+    [Theory, CombinatorialData]
+    public async Task products_should_have_correct_values(
+        [CombinatorialValues("salad","tomato","race kart")] string name,
+        [CombinatorialValues(3.4, 5.5)] decimal price,
+        [CombinatorialValues(10, 20)] decimal taxPercentage)
+    {
+        var category = new Category(Name: "category", TaxPercentage: taxPercentage);
+        var product = new Product(name, price, category);
+
+        await Verify($"Tax: {product.Tax} - Price: {product.TaxedAmount}")
+            .UseParameters(name, price, taxPercentage);
     }
 ```
